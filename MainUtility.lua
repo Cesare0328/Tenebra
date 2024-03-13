@@ -8,7 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-                        local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 			
 			local Root = script
 			local Creator = require(Root.Creator)
@@ -196,7 +196,7 @@ local ClosureBindings = {
 			}
 
 			function Acrylic.init()
-				local baseEffect = Instance.new("BlurEffect")
+				local baseEffect = Instance.new("DepthOfField")
 				baseEffect.Size = 45
 
 				local depthOfFieldDefaults = {}
@@ -217,7 +217,7 @@ local ClosureBindings = {
 
 				local function registerDefaults()
 					local function register(object)
-						if object:IsA("BlurEffect") then
+						if object:IsA("DepthOfField") then
 							depthOfFieldDefaults[object] = { enabled = object.Enabled }
 						end
 					end
