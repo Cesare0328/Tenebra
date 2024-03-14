@@ -3674,16 +3674,8 @@ local ClosureBindings = {
 				end
 
 				UserInputService.InputBegan:Connect(function(input)
-					if input.KeyCode == Enum.KeyCode.Tab then
-						if prediction ~= "" then	
-
-							Input.Value = prediction
-							Box.Text = prediction
-							prediction = ""
-
-							Library:SafeCallback(Input.Callback, Input.Value)
-							Library:SafeCallback(Input.Changed, Input.Value)
-						end
+					if input.KeyCode == Enum.KeyCode.Tab and Textbox.Input:IsFocused() and prediction ~= "" then
+						Input:SetValue(prediction, true)
 					end
 				end)
 				task.spawn(function()
