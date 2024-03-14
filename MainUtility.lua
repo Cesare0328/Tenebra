@@ -1215,7 +1215,7 @@ local ClosureBindings = {
 
 				local Tab = {
 					Selected = false,
-					Name = "Title",
+					Name = Title,
 					Type = "Tab",
 				}
 
@@ -3675,10 +3675,8 @@ local ClosureBindings = {
                     if input.KeyCode == Enum.KeyCode.Tab then
                         if prediction ~= "" then	
     
-                            task.wait()
                             Input.Value = prediction
                             Box.Text = prediction
-                            task.wait()
                             prediction = ""
     
                             Library:SafeCallback(Input.Callback, Input.Value)
