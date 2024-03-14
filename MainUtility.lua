@@ -3678,12 +3678,12 @@ local ClosureBindings = {
 						if prediction ~= "" then	
 
                                                         task.wait()
-							Input.Value = prediction
-							Box.Text = prediction
-							prediction = ""
+							Input:SetValue(prediction, true)
+			                                task.wait()
+			                                prediction = ""
 
-							Library:SafeCallback(Input.Callback, Input.Value)
-							Library:SafeCallback(Input.Changed, Input.Value)
+							--Library:SafeCallback(Input.Callback, Input.Value)
+							--Library:SafeCallback(Input.Changed, Input.Value)
 						end
 					end
 				end)
