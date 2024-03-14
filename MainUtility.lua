@@ -1215,7 +1215,7 @@ local ClosureBindings = {
 
 				local Tab = {
 					Selected = false,
-					Name = "Test",
+					Name = "Title",
 					Type = "Tab",
 				}
 
