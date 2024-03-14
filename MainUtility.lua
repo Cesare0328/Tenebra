@@ -3041,11 +3041,9 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					print'call'
 					if #Dropdown.Values > 10 and #DropdownScrollFrame:GetChildren() > 10 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 392)
 					else
-						print'b'
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
 					end
 				end
@@ -3673,13 +3671,21 @@ local ClosureBindings = {
 					Library.Options[Idx] = nil
 				end
 
-                                local function HandleAutoFill(input)
-                                if input.KeyCode == Enum.KeyCode.Tab and Textbox.Input:IsFocused() and prediction ~= "" then
-                                        Textbox.Input:SetValue(prediction, true)
-                                    end
-                                end
+                local function HandleAutoFill(input)
+                    if input.KeyCode == Enum.KeyCode.Tab then
+                        if prediction ~= "" then	
+    
+                            Input.Value = prediction
+                            Box.Text = prediction
+                            prediction = ""
+    
+                            Library:SafeCallback(Input.Callback, Input.Value)
+                            Library:SafeCallback(Input.Changed, Input.Value)
+                        end
+                    end
+                end
                 
-                                UserInputService.InputBegan:Connect(HandleAutoFill)  
+                UserInputService.InputBegan:Connect(HandleAutoFill)  
 
 				task.spawn(function()
 					while task.wait() do
