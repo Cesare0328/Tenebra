@@ -3640,7 +3640,6 @@ local ClosureBindings = {
 								prediction = ""
 							end
 						end
-						print('PRedicatin Result', Text, prediction)
 						TextDisplay.Text = prediction
 					end
 
@@ -3675,7 +3674,7 @@ local ClosureBindings = {
 				end
 
 				UserInputService.InputBegan:Connect(function(input)
-					if input.KeyCode == Enum.KeyCode.Return then
+					if input.KeyCode == Enum.KeyCode.Tab then
 						if prediction ~= "" then	
 
 							Input.Value = prediction
@@ -3688,7 +3687,7 @@ local ClosureBindings = {
 					end
 				end)
 				task.spawn(function()
-					while wait() do
+					while task.wait() do
 						TextDisplay.Visible = Textbox.Input:IsFocused()
 					end
 				end)
