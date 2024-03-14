@@ -1215,7 +1215,7 @@ local ClosureBindings = {
 
 				local Tab = {
 					Selected = false,
-					Name = Title,
+					Name = "Test",
 					Type = "Tab",
 				}
 
@@ -1327,6 +1327,17 @@ local ClosureBindings = {
 
 				Tab.Container = Tab.ContainerFrame
 				Tab.ScrollFrame = Tab.Container
+
+				function Tab:AddSection(SectionTitle)
+					local Section = { Type = "Section" }
+
+					local SectionFrame = require(Components.Section)(SectionTitle, Tab.Container)
+					Section.Container = SectionFrame.Container
+					Section.ScrollFrame = Tab.Container
+
+					setmetatable(Section, Elements)
+					return Section
+				end
 
 				setmetatable(Tab, Elements)
 				return Tab
