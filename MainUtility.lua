@@ -8,8 +8,8 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-                        local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
-			
+			local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+
 			local Root = script
 			local Creator = require(Root.Creator)
 			local ElementsTable = require(Root.Elements)
@@ -219,7 +219,7 @@ local ClosureBindings = {
 
 				local function registerDefaults()
 					local function register(object)
-						if object:IsA("DepthOfField") then
+						if object:IsA("DepthOfFieldEffect") then
 							depthOfFieldDefaults[object] = { enabled = object.Enabled }
 						end
 					end
