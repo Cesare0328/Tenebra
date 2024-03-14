@@ -3673,20 +3673,14 @@ local ClosureBindings = {
 					Library.Options[Idx] = nil
 				end
 
-				UserInputService.InputBegan:Connect(function(input)
-					if input.KeyCode == Enum.KeyCode.Tab then
-						if prediction ~= "" then	
+                                local function HandleAutoFill(input)
+                                if input.KeyCode == Enum.KeyCode.Tab and Textbox.Input:IsFocused() and prediction ~= "" then
+                                        Textbox.Input:SetValue(prediction, true)
+                                    end
+                                end
+                
+                                UserInputService.InputBegan:Connect(HandleAutoFill)  
 
-                                                        task.wait()
-							Input:SetValue(prediction, true)
-			                                task.wait()
-			                                prediction = ""
-
-							--Library:SafeCallback(Input.Callback, Input.Value)
-							--Library:SafeCallback(Input.Changed, Input.Value)
-						end
-					end
-				end)
 				task.spawn(function()
 					while task.wait() do
 						TextDisplay.Visible = Textbox.Input:IsFocused()
