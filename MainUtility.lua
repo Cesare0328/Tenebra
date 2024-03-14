@@ -1238,27 +1238,6 @@ local ClosureBindings = {
 					New("UICorner", {
 						CornerRadius = UDim.new(0, 6),
 					}),
-					New("TextLabel", {
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = Icon and UDim2.new(0, 30, 0.5, 0) or UDim2.new(0, 12, 0.5, 0),
-						Text = Title,
-						RichText = true,
-						TextColor3 = Color3.fromRGB(255, 255, 255),
-						TextTransparency = 0,
-						FontFace = Font.new(
-							"rbxasset://fonts/families/GothamSSm.json",
-							Enum.FontWeight.Regular,
-							Enum.FontStyle.Normal
-						),
-						TextSize = 12,
-						TextXAlignment = "Left",
-						TextYAlignment = "Center",
-						Size = UDim2.new(1, -12, 1, 0),
-						BackgroundTransparency = 1,
-						ThemeTag = {
-							TextColor3 = "Text",
-						},
-					}),
 					New("ImageLabel", {
 						AnchorPoint = Vector2.new(0, 0.5),
 						Size = UDim2.fromOffset(16, 16),
