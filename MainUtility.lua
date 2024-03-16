@@ -1355,7 +1355,7 @@ local ClosureBindings = {
 				TabModule.Tabs[Tab].SetTransparency(0.89)
 				TabModule.Tabs[Tab].Selected = true
 
-				Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
+				--Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
 				Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
 
 				task.spawn(function()
@@ -1783,7 +1783,7 @@ local ClosureBindings = {
 					Parent = Config.Parent,
 				}, {
 					Window.AcrylicPaint.Frame,
-					Window.TabDisplay,
+					--Window.TabDisplay,
 					Window.ContainerCanvas,
 					TabFrame,
 					ResizeStartFrame,
