@@ -137,6 +137,7 @@ local ClosureBindings = {
 			end
 
 			function Library:Destroy()
+				print("Attempt delete")
 				if Library.Window then
 					Library.Unloaded = true
 					if Library.UseAcrylic then
@@ -1628,6 +1629,7 @@ local ClosureBindings = {
 								Title = "Yes",
 								Callback = function()
 									Library:Destroy()
+									warn("callback ran")
 								end,
 							},
 							{
