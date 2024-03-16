@@ -58,20 +58,10 @@ local ClosureBindings = {
 					local _, i = Event:find(":%d+: ")
 
 					if not i then
-						return Library:Notify({
-							Title = "Interface",
-							Content = "Callback error",
-							SubContent = Event,
-							Duration = 5,
-						})
+						return 
 					end
 
-					return Library:Notify({
-						Title = "Interface",
-						Content = "Callback error",
-						SubContent = Event:sub(i + 1),
-						Duration = 5,
-					})
+					return
 				end
 			end
 
@@ -148,7 +138,6 @@ local ClosureBindings = {
 			end
 
 			function Library:Destroy()
-				print("Attempt delete")
 				if Library.Window then
 					Library.Unloaded = true
 					if Library.UseAcrylic then
@@ -1641,7 +1630,6 @@ local ClosureBindings = {
 								Title = "Yes",
 								Callback = function()
 									Library:Destroy()
-									warn("callback ran")
 								end,
 							},
 							{
