@@ -37,10 +37,10 @@ local ClosureBindings = {
 				WindowFrame = nil,
 				Unloaded = false,
 
-				Theme = "Dark",
+				Theme = "Darker",
 				DialogOpen = false,
 				UseAcrylic = false,
-				Acrylic = false,
+				Acrylic = true,
 				Transparency = true,
 				MinimizeKeybind = nil,
 				MinimizeKey = Enum.KeyCode.LeftControl,
