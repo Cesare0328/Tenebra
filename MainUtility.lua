@@ -61,7 +61,7 @@ local ClosureBindings = {
 					if not i then
 						return Library:Notify({
 							Title = "Interface",
-							Content = "Callback error on " .. tostring(getinfo(Function).name),
+							Content = "Callback error on " .. tostring(getinfo(Function).name) .. " (0x" .. tostring(Function) .. ")",
 							SubContent = Event,
 							Duration = 5,
 						})
@@ -69,7 +69,7 @@ local ClosureBindings = {
 
 					return Library:Notify({
 						Title = "Interface",
-						Content = "Callback error on " .. tostring(getinfo(Function).name),
+						Content = "Callback error on " .. tostring(getinfo(Function).name) .. " (0x" .. tostring(Function) .. ")",
 						SubContent = Event:sub(i + 1),
 						Duration = 5,
 					})
@@ -768,7 +768,6 @@ local ClosureBindings = {
 					end
 
 					Creator.AddSignal(Button.Frame.MouseButton1Click, function()
-						require(Root):SafeCallback(Callback)
 						pcall(function()
 							NewDialog:Close()
 						end)
@@ -3042,11 +3041,9 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					print'call'
 					if #Dropdown.Values > 10 and #DropdownScrollFrame:GetChildren() > 10 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 392)
 					else
-						print'b'
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
 					end
 				end
@@ -3641,7 +3638,6 @@ local ClosureBindings = {
 								prediction = ""
 							end
 						end
-						print('PRedicatin Result', Text, prediction)
 						TextDisplay.Text = prediction
 					end
 
