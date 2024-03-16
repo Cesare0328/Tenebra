@@ -37,7 +37,7 @@ local ClosureBindings = {
 				WindowFrame = nil,
 				Unloaded = false,
 
-				Theme = "Dark",
+				Theme = "Darker",
 				DialogOpen = false,
 				UseAcrylic = false,
 				Acrylic = false,
@@ -1755,7 +1755,7 @@ local ClosureBindings = {
 					ThemeTag = {
 						TextColor3 = "Text",
 					},
-				})]]--
+				})]]
 
 				Window.ContainerHolder = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
@@ -1768,8 +1768,8 @@ local ClosureBindings = {
 				})
 
 				Window.ContainerCanvas = New("Frame", {
-					Size = UDim2.new(1, -Window.TabWidth - 32, 1, -102),
-					Position = UDim2.fromOffset(Window.TabWidth + 26, 90),
+					Size = UDim2.new(1, -Window.TabWidth - 32, 1, -72),
+					Position = UDim2.fromOffset(Window.TabWidth + 26, 60),
 					BackgroundTransparency = 1,
 				}, {
 					Window.ContainerAnim,
@@ -1783,7 +1783,7 @@ local ClosureBindings = {
 					Parent = Config.Parent,
 				}, {
 					Window.AcrylicPaint.Frame,
-					--Window.TabDisplay,
+					Window.TabDisplay,
 					Window.ContainerCanvas,
 					TabFrame,
 					ResizeStartFrame,
@@ -3041,9 +3041,11 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
+					print'call'
 					if #Dropdown.Values > 10 and #DropdownScrollFrame:GetChildren() > 10 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 392)
 					else
+						print'b'
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
 					end
 				end
@@ -3638,6 +3640,7 @@ local ClosureBindings = {
 								prediction = ""
 							end
 						end
+						print('PRedicatin Result', Text, prediction)
 						TextDisplay.Text = prediction
 					end
 
@@ -3671,24 +3674,21 @@ local ClosureBindings = {
 					Library.Options[Idx] = nil
 				end
 
-                local function HandleAutoFill(input)
-                    if input.KeyCode == Enum.KeyCode.Tab then
-                        if prediction ~= "" then	
-    
-                            Input.Value = prediction
-                            Box.Text = prediction
-                            prediction = ""
-    
-                            Library:SafeCallback(Input.Callback, Input.Value)
-                            Library:SafeCallback(Input.Changed, Input.Value)
-                        end
-                    end
-                end
-                
-                UserInputService.InputBegan:Connect(HandleAutoFill)  
+				UserInputService.InputBegan:Connect(function(input)
+					if input.KeyCode == Enum.KeyCode.Return then
+						if prediction ~= "" then	
 
+							Input.Value = prediction
+							Box.Text = prediction
+							prediction = ""
+
+							Library:SafeCallback(Input.Callback, Input.Value)
+							Library:SafeCallback(Input.Changed, Input.Value)
+						end
+					end
+				end)
 				task.spawn(function()
-					while task.wait() do
+					while wait() do
 						TextDisplay.Visible = Textbox.Input:IsFocused()
 					end
 				end)
@@ -4087,6 +4087,8 @@ local ClosureBindings = {
 				Slider:SetValue(Config.Default)
 
 				Library.Options[Idx] = Slider
+				
+				-- TOGGLE
 				do 
 					if Config.Toggle then	
 						assert(Config.Toggle and Config.Toggle.Flag, "Colorpicker Toggle - Missing flag!")
@@ -4131,6 +4133,8 @@ local ClosureBindings = {
 							ToggleCircle,
 							ToggleInteract
 						})
+
+
 
 						function Toggle:OnChanged(Func)
 							Toggle.Changed = Func
@@ -7102,7 +7106,6 @@ function ImportGlobals(refId)
 
 		shared = WaxShared,
 
-		-- "Real" globals instead of the env set ones
 		script = script,
 		require = require,
 	})
@@ -7145,7 +7148,6 @@ function ImportGlobals(refId)
 					RealIndex = "Parent"
 				end
 
-				-- Don't advance dir if it's just another "/" either
 				if RealIndex ~= "" then
 					local ResultRef = CurrentRefPointer:FindFirstChild(RealIndex)
 					if not ResultRef then
