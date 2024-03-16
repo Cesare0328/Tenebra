@@ -50,7 +50,7 @@ local ClosureBindings = {
 
 			function Library:SafeCallback(Function, ...)
 				if not Function then
-					warn("Function Invalid")
+					--warn("Invalid Function")
 					return
 				end
 
@@ -59,20 +59,8 @@ local ClosureBindings = {
 					local _, i = Event:find(":%d+: ")
 
 					if not i then
-						return Library:Notify({
-							Title = "Interface",
-							Content = "Callback error on " .. tostring(getinfo(Function).name) .. " (0x" .. tostring(Function) .. ")",
-							SubContent = Event,
-							Duration = 5,
-						})
+						return
 					end
-
-					return Library:Notify({
-						Title = "Interface",
-						Content = "Callback error on " .. tostring(getinfo(Function).name) .. " (0x" .. tostring(Function) .. ")",
-						SubContent = Event:sub(i + 1),
-						Duration = 5,
-					})
 				end
 			end
 
@@ -2861,7 +2849,7 @@ local ClosureBindings = {
 
 						ToggleInteract.MouseButton1Click:Connect(
 							function(InputObject)
-									Toggle:SetValue(not Toggle.Value)
+								Toggle:SetValue(not Toggle.Value)
 							end
 						)
 
