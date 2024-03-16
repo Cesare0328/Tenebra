@@ -50,7 +50,6 @@ local ClosureBindings = {
 
 			function Library:SafeCallback(Function, ...)
 				if not Function then
-					--warn("Invalid Function")
 					return
 				end
 
@@ -59,8 +58,20 @@ local ClosureBindings = {
 					local _, i = Event:find(":%d+: ")
 
 					if not i then
-						return
+						return Library:Notify({
+							Title = "Interface",
+							Content = "Callback error",
+							SubContent = Event,
+							Duration = 5,
+						})
 					end
+
+					return Library:Notify({
+						Title = "Interface",
+						Content = "Callback error",
+						SubContent = Event:sub(i + 1),
+						Duration = 5,
+					})
 				end
 			end
 
@@ -1628,6 +1639,7 @@ local ClosureBindings = {
 							{
 								Title = "Yes",
 								Callback = function()
+									Library:Destroy()
 									warn("callback ran")
 								end,
 							},
