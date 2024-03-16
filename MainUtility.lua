@@ -1741,7 +1741,7 @@ local ClosureBindings = {
 					Selector,
 				})
 
-				Window.TabDisplay = New("TextLabel", {
+				--[[Window.TabDisplay = New("TextLabel", {
 					RichText = true,
 					Text = "Tab",
 					TextTransparency = 0,
@@ -1755,7 +1755,7 @@ local ClosureBindings = {
 					ThemeTag = {
 						TextColor3 = "Text",
 					},
-				})
+				})]]--
 
 				Window.ContainerHolder = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
@@ -4087,6 +4087,84 @@ local ClosureBindings = {
 				Slider:SetValue(Config.Default)
 
 				Library.Options[Idx] = Slider
+				do 
+					if Config.Toggle then	
+						assert(Config.Toggle and Config.Toggle.Flag, "Colorpicker Toggle - Missing flag!")
+
+						local Toggle = {
+							Value = Config.Toggle.Default or false,
+							Callback = Config.Toggle.Callback or function(Value) end,
+							Type = "Toggle",
+						}
+
+						local ToggleCircle = New("ImageLabel", {
+							Name = "Image",
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Size = UDim2.fromOffset(18, 18),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+							Image = "http://www.roblox.com/asset/?id=14878656974",
+							Visible = true,
+							ImageTransparency = 0,
+							ImageColor3 = Color3.fromRGB(255,255,255),
+
+						})
+
+						local ToggleInteract = New("TextButton", {
+							Size = UDim2.new(1, 0, 1, 0),
+							BackgroundTransparency = 1,
+							TextTransparency = 1
+						})
+
+						local ToggleFrame = New("Frame", {
+							Size = UDim2.fromOffset(27, 27),
+							Position = UDim2.new(1, -180, 0.5, 0),
+							AnchorPoint = Vector2.new(1, 0.5),
+							BackgroundColor3 = Color3.fromRGB(255,255,255),
+							Parent = SliderFrame.Frame,
+							ThemeTag = {
+								BackgroundColor3 = "Dialog",
+							}
+						}, {
+							New("UICorner", {
+								CornerRadius = UDim.new(0, 4),
+							}),
+							ToggleCircle,
+							ToggleInteract
+						})
+
+						function Toggle:OnChanged(Func)
+							Toggle.Changed = Func
+							Func(Toggle.Value)
+						end
+						local TweenService = game:GetService("TweenService")
+
+						function Toggle:SetValue(Value)
+							Value = not not Value
+							Toggle.Value = Value
+
+							TweenService:Create(
+								ToggleCircle,
+								TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+								{ ImageTransparency = Toggle.Value and 0 or 1}
+							):Play()
+
+							Library:SafeCallback(Toggle.Callback, Toggle.Value)
+							Library:SafeCallback(Toggle.Changed, Toggle.Value)
+						end
+
+
+						ToggleInteract.MouseButton1Click:Connect(
+							function(InputObject)
+								Toggle:SetValue(not Toggle.Value)
+							end
+						)
+
+						Toggle:SetValue(Toggle.Value)
+
+						Library.Options[Config.Toggle.Flag] = Toggle
+					end
+				end
+				
 				return Slider
 			end
 
