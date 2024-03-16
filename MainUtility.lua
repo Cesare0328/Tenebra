@@ -768,6 +768,7 @@ local ClosureBindings = {
 					end
 
 					Creator.AddSignal(Button.Frame.MouseButton1Click, function()
+						require(Root):SafeCallback(Callback) 
 						pcall(function()
 							NewDialog:Close()
 						end)
