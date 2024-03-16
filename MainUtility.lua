@@ -61,7 +61,7 @@ local ClosureBindings = {
 					if not i then
 						return Library:Notify({
 							Title = "Interface",
-							Content = "Callback error on " .. tostring(Function),
+							Content = "Callback error on " .. tostring(getinfo(Function).name),
 							SubContent = Event,
 							Duration = 5,
 						})
@@ -69,7 +69,7 @@ local ClosureBindings = {
 
 					return Library:Notify({
 						Title = "Interface",
-						Content = "Callback error on " .. tostring(Function),
+						Content = "Callback error on " .. tostring(getinfo(Function).name),
 						SubContent = Event:sub(i + 1),
 						Duration = 5,
 					})
