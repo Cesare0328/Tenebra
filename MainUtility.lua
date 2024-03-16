@@ -1628,7 +1628,6 @@ local ClosureBindings = {
 							{
 								Title = "Yes",
 								Callback = function()
-									Library:Destroy()
 									warn("callback ran")
 								end,
 							},
