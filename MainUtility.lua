@@ -8,7 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+                        local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 
 			local Root = script
 			local Creator = require(Root.Creator)
@@ -3099,10 +3099,7 @@ local ClosureBindings = {
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
-                Creator.AddSignal(DropdownSearch.MouseButton1Click, function()
-					task.wait(0.05);
-					Dropdown:Open()
-				end)
+				
 				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
 					task.wait(0.05);
 					Dropdown:Open()
@@ -3146,9 +3143,9 @@ local ClosureBindings = {
 					DropdownHolderCanvas.Visible = false
 				end
 
-				--[[Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
+				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
 					Dropdown:Open()
-				end)]]--
+				end)
 
 
 				Textbox.Frame.Frame.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
