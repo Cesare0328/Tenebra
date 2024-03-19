@@ -3104,10 +3104,10 @@ local ClosureBindings = {
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
-				--[[Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
+				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
 					task.wait(0.05);
 					Dropdown:Open()
-				end)]]--
+				end)
 
 				Creator.AddSignal(UserInputService.InputBegan, function(Input)
 					if
@@ -3147,9 +3147,9 @@ local ClosureBindings = {
 					DropdownHolderCanvas.Visible = false
 				end
 
-				--[[Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
+				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
 					Dropdown:Open()
-				end)]]--
+				end)
 
 
 				Textbox.Frame.Frame.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
@@ -3166,7 +3166,7 @@ local ClosureBindings = {
 
 						local Count = 0
 
-						for Idx, Value in pairs(Values) do
+						for Idx, Value in ipairs(Values) do
 							if typeof(Value) == "table" then
 								Value = Value[2]
 							end
@@ -3372,7 +3372,7 @@ local ClosureBindings = {
 
 					local Count = 0
 
-					for Idx, Value in pairs(Values) do
+					for Idx, Value in ipairs(Values) do
 						local Table = {}
 						
 						if typeof(Value) == "table" then
