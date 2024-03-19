@@ -1566,7 +1566,7 @@ local ClosureBindings = {
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0.85, 0.52),
+					Position = UDim2.fromScale(0.65, 0.52),
 					Size = UDim2.fromOffset(32, 32),
 				})
 				
@@ -1578,7 +1578,7 @@ local ClosureBindings = {
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
 					LayoutOrder = -1,
-					Size = UDim2.fromScale(0, 0.8),
+					Size = UDim2.fromScale(0, 1),
 				}, {
 					Logo
 				})
