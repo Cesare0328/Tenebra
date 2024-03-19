@@ -8,7 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-                        local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 
 			local Root = script
 			local Creator = require(Root.Creator)
@@ -3079,7 +3079,7 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					if #DropdownScrollFrame:GetChildren() < 5 then
+					if #DropdownScrollFrame:GetChildren() <=5 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
 					else
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
