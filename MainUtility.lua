@@ -2955,7 +2955,7 @@ local ClosureBindings = {
 					Visible = true,
 				})
 
-				local DropdownIco = New("ImageLabel", {
+				local DropdownIco = New("ImageButton", {
 					Image = "rbxassetid://10709790948",
 					Size = UDim2.fromOffset(16, 16),
 					AnchorPoint = Vector2.new(1, 0.5),
@@ -2966,7 +2966,7 @@ local ClosureBindings = {
 					},
 				})
 				
-				local DropdownSearch = New("ImageLabel", {
+				local DropdownSearch = New("ImageButton", {
 					Image = "http://www.roblox.com/asset/?id=16792751412",
 					Size = UDim2.fromOffset(16, 16),
 					AnchorPoint = Vector2.new(1, 0.5),
@@ -3095,7 +3095,7 @@ local ClosureBindings = {
 
 				Creator.AddSignal(DropdownInner:GetPropertyChangedSignal("AbsolutePosition"), RecalculateListPosition)
 
-				Creator.AddSignal(DropdownInner.MouseButton1Click, function()
+				Creator.AddSignal(DropdownIco.MouseButton1Click, function()
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
