@@ -8,7 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-			local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 
 			local Root = script
 			local Creator = require(Root.Creator)
@@ -39,7 +39,7 @@ local ClosureBindings = {
 
 				Theme = "Darker",
 				DialogOpen = false,
-				UseAcrylic = false,
+				UseAcrylic = true,
 				Acrylic = true,
 				Transparency = true,
 				MinimizeKeybind = nil,
@@ -58,7 +58,7 @@ local ClosureBindings = {
 					local _, i = Event:find(":%d+: ")
 
 					if not i then
-						return 
+						return
 					end
 
 					return
@@ -757,7 +757,7 @@ local ClosureBindings = {
 					end
 
 					Creator.AddSignal(Button.Frame.MouseButton1Click, function()
-						require(Root):SafeCallback(Callback) 
+						require(Root):SafeCallback(Callback)
 						pcall(function()
 							NewDialog:Close()
 						end)
@@ -1557,6 +1557,8 @@ local ClosureBindings = {
 
 					return Button
 				end
+			
+				
 				local Logo = New("ImageLabel", {
 					Name = "Icon",
 					Image = "rbxassetid://16741315150",
@@ -1566,7 +1568,7 @@ local ClosureBindings = {
 					BackgroundTransparency = 1,
 					BorderColor3 = Color3.fromRGB(0, 0, 0),
 					BorderSizePixel = 0,
-					Position = UDim2.fromScale(0.52, 0.52),
+					Position = UDim2.fromScale(0.5, 0.5),
 					Size = UDim2.fromOffset(32, 32),
 				})
 				
@@ -1582,6 +1584,7 @@ local ClosureBindings = {
 				}, {
 					Logo
 				})
+
 				TitleBar.Frame = New("Frame", {
 					Size = UDim2.new(1, 0, 0, 42),
 					BackgroundTransparency = 1,
@@ -2827,17 +2830,20 @@ local ClosureBindings = {
 							ImageColor3 = Color3.fromRGB(255,255,255),
 							
 						})
+						
 						local ToggleInteract = New("TextButton", {
 							Size = UDim2.new(1, 0, 1, 0),
 							BackgroundTransparency = 1,
 							TextTransparency = 1
 						})
+						
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
 								Color = "ToggleSlider",
 							},
 						})
+
 						local ToggleFrame = New("Frame", {
 							Size = UDim2.fromOffset(27, 27),
 							Position = UDim2.new(1, -45, 0.5, 0),
@@ -2881,7 +2887,7 @@ local ClosureBindings = {
 
 						ToggleInteract.MouseButton1Click:Connect(
 							function(InputObject)
-								Toggle:SetValue(not Toggle.Value)
+									Toggle:SetValue(not Toggle.Value)
 							end
 						)
 
@@ -2937,8 +2943,8 @@ local ClosureBindings = {
 					TextColor3 = Color3.fromRGB(240, 240, 240),
 					TextSize = 13,
 					TextXAlignment = Enum.TextXAlignment.Left,
-					Size = UDim2.new(1, -30, 0, 14),
-					Position = UDim2.new(0, 8, 0.5, 0),
+					Size = UDim2.new(1, -60, 0, 14),
+					Position = UDim2.new(0, 32, 0.5, 0),
 					AnchorPoint = Vector2.new(0, 0.5),
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -2959,6 +2965,7 @@ local ClosureBindings = {
 						ImageColor3 = "SubText",
 					},
 				})
+				
 				local DropdownSearch = New("ImageLabel", {
 					Image = "http://www.roblox.com/asset/?id=16792751412",
 					Size = UDim2.fromOffset(16, 16),
@@ -2969,6 +2976,7 @@ local ClosureBindings = {
 						ImageColor3 = "SubText",
 					},
 				})
+
 				local DropdownInner = New("TextButton", {
 					Size = UDim2.fromOffset(160, 30),
 					Position = UDim2.new(1, -10, 0.5, 0),
@@ -3161,6 +3169,7 @@ local ClosureBindings = {
 							if string.find(string.lower(Value), string.lower(Textbox.Frame.Frame.TextBox.Text)) then
 								local Table = {}
 							
+
 								Count = Count + 1
 
 								local ButtonSelector = New("Frame", {
@@ -4057,7 +4066,7 @@ local ClosureBindings = {
 				local SliderInner = New("Frame", {
 					Size = UDim2.new(1, 0, 0, 4),
 					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, -10, 0.5, 0),
+					Position = UDim2.new(1, -50, 0.5, 0),
 					BackgroundTransparency = 0.4,
 					Parent = SliderFrame.Frame,
 					ThemeTag = {
@@ -4159,7 +4168,7 @@ local ClosureBindings = {
 							BackgroundTransparency = 1,
 							TextTransparency = 1
 						})
-
+						
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
@@ -4169,7 +4178,7 @@ local ClosureBindings = {
 
 						local ToggleFrame = New("Frame", {
 							Size = UDim2.fromOffset(27, 27),
-							Position = UDim2.new(1, -5, 0.5, 0),
+							Position = UDim2.new(1, -10, 0.5, 0),
 							AnchorPoint = Vector2.new(1, 0.5),
 							BackgroundColor3 = Color3.fromRGB(255,255,255),
 							Parent = SliderFrame.Frame,
@@ -7157,6 +7166,7 @@ function ImportGlobals(refId)
 
 		shared = WaxShared,
 
+		-- "Real" globals instead of the env set ones
 		script = script,
 		require = require,
 	})
