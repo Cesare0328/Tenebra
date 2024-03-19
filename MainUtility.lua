@@ -1557,7 +1557,31 @@ local ClosureBindings = {
 
 					return Button
 				end
-
+				local Logo = New("ImageLabel", {
+					Name = "Icon",
+					Image = "rbxassetid://16741315150",
+					ImageColor3 = Color3.fromRGB(240, 240, 240),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					Position = UDim2.fromScale(0.5, 0.5),
+					Size = UDim2.fromOffset(32, 32),
+				})
+				
+				local LogoHolder = New("Frame", {
+					Name = "Frame",
+					AutomaticSize = Enum.AutomaticSize.XY,
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					BorderColor3 = Color3.fromRGB(0, 0, 0),
+					BorderSizePixel = 0,
+					LayoutOrder = -1,
+					Size = UDim2.fromScale(0, 1),
+				}, {
+					Logo
+				})
 				TitleBar.Frame = New("Frame", {
 					Size = UDim2.new(1, 0, 0, 42),
 					BackgroundTransparency = 1,
@@ -1573,6 +1597,7 @@ local ClosureBindings = {
 							FillDirection = Enum.FillDirection.Horizontal,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
+						LogoHolder,
 						New("TextLabel", {
 							RichText = true,
 							Text = Config.Title,
@@ -2802,13 +2827,17 @@ local ClosureBindings = {
 							ImageColor3 = Color3.fromRGB(255,255,255),
 							
 						})
-						
 						local ToggleInteract = New("TextButton", {
 							Size = UDim2.new(1, 0, 1, 0),
 							BackgroundTransparency = 1,
 							TextTransparency = 1
 						})
-
+						local ToggleBorder = New("UIStroke", {
+							Transparency = 0.5,
+							ThemeTag = {
+								Color = "ToggleSlider",
+							},
+						})
 						local ToggleFrame = New("Frame", {
 							Size = UDim2.fromOffset(27, 27),
 							Position = UDim2.new(1, -45, 0.5, 0),
@@ -2823,7 +2852,8 @@ local ClosureBindings = {
 								CornerRadius = UDim.new(0, 4),
 							}),
 							ToggleCircle,
-							ToggleInteract
+							ToggleInteract,
+							ToggleBorder
 						})
 
 					
@@ -2929,7 +2959,16 @@ local ClosureBindings = {
 						ImageColor3 = "SubText",
 					},
 				})
-
+				local DropdownSearch = New("ImageLabel", {
+					Image = "http://www.roblox.com/asset/?id=16792751412",
+					Size = UDim2.fromOffset(16, 16),
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.new(0, 24, 0.5, 0),
+					BackgroundTransparency = 1,
+					ThemeTag = {
+						ImageColor3 = "SubText",
+					},
+				})
 				local DropdownInner = New("TextButton", {
 					Size = UDim2.fromOffset(160, 30),
 					Position = UDim2.new(1, -10, 0.5, 0),
@@ -2950,6 +2989,7 @@ local ClosureBindings = {
 							Color = "InElementBorder",
 						},
 					}),
+					DropdownSearch,
 					DropdownIco,
 					DropdownDisplay,
 				})
@@ -3031,10 +3071,10 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					if #Dropdown.Values > 10 and #DropdownScrollFrame:GetChildren() > 10 then
-						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 392)
-					else
+					if #DropdownScrollFrame:GetChildren() < 5 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
+					else
+						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
 					end
 				end
 
@@ -3048,6 +3088,12 @@ local ClosureBindings = {
 				Creator.AddSignal(DropdownInner:GetPropertyChangedSignal("AbsolutePosition"), RecalculateListPosition)
 
 				Creator.AddSignal(DropdownInner.MouseButton1Click, function()
+					task.wait(0.05);
+					Dropdown:Open()
+				end)
+				
+				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
+					task.wait(0.05);
 					Dropdown:Open()
 				end)
 
@@ -3108,10 +3154,13 @@ local ClosureBindings = {
 
 						local Count = 0
 
-						for Idx, Value in next, Values do
+						for Idx, Value in ipairs(Values) do
+							if typeof(Value) == "table" then
+								Value = Value[2]
+							end
 							if string.find(string.lower(Value), string.lower(Textbox.Frame.Frame.TextBox.Text)) then
 								local Table = {}
-
+							
 								Count = Count + 1
 
 								local ButtonSelector = New("Frame", {
@@ -3269,6 +3318,9 @@ local ClosureBindings = {
 
 					if Config.Multi then
 						for Idx, Value in next, Values do
+							if typeof(Value) == "table" then
+								Value = Value[2]
+							end
 							if Dropdown.Value[Value] then
 								Str = Str .. Value .. ", "
 							end
@@ -3278,7 +3330,7 @@ local ClosureBindings = {
 						Str = Dropdown.Value or ""
 					end
 
-					DropdownDisplay.Text = (Str == "" and "--" or Str)
+					DropdownDisplay.Text = Str
 				end
 
 				function Dropdown:GetActiveValues()
@@ -3307,8 +3359,12 @@ local ClosureBindings = {
 
 					local Count = 0
 
-					for Idx, Value in next, Values do
+					for Idx, Value in ipairs(Values) do
 						local Table = {}
+						
+						if typeof(Value) == "table" then
+							Value = Value[2]
+						end
 
 						Count = Count + 1
 
@@ -4104,6 +4160,13 @@ local ClosureBindings = {
 							TextTransparency = 1
 						})
 
+						local ToggleBorder = New("UIStroke", {
+							Transparency = 0.5,
+							ThemeTag = {
+								Color = "ToggleSlider",
+							},
+						})
+
 						local ToggleFrame = New("Frame", {
 							Size = UDim2.fromOffset(27, 27),
 							Position = UDim2.new(1, -180, 0.5, 0),
@@ -4118,7 +4181,8 @@ local ClosureBindings = {
 								CornerRadius = UDim.new(0, 4),
 							}),
 							ToggleCircle,
-							ToggleInteract
+							ToggleInteract,
+							ToggleBorder
 						})
 
 
@@ -6209,7 +6273,7 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(120, 90, 90),
 			ElementTransparency = 0.86,
 
-			ToggleSlider = Color3.fromRGB(200, 120, 170),
+			ToggleSlider = Color3.fromRGB(220, 130, 190),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
 			SliderRail = Color3.fromRGB(200, 120, 170),
