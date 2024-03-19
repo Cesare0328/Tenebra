@@ -8,7 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-			local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
+            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 
 			local Root = script
 			local Creator = require(Root.Creator)
@@ -3099,11 +3099,14 @@ local ClosureBindings = {
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
-				
-				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
+                Creator.AddSignal(DropdownSearch.MouseButton1Click, function()
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
+				--[[Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
+					task.wait(0.05);
+					Dropdown:Open()
+				end)]]--
 
 				Creator.AddSignal(UserInputService.InputBegan, function(Input)
 					if
@@ -3143,9 +3146,9 @@ local ClosureBindings = {
 					DropdownHolderCanvas.Visible = false
 				end
 
-				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
+				--[[Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
 					Dropdown:Open()
-				end)
+				end)]]--
 
 
 				Textbox.Frame.Frame.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
@@ -3162,7 +3165,7 @@ local ClosureBindings = {
 
 						local Count = 0
 
-						for Idx, Value in ipairs(Values) do
+						for Idx, Value in pairs(Values) do
 							if typeof(Value) == "table" then
 								Value = Value[2]
 							end
@@ -3368,7 +3371,7 @@ local ClosureBindings = {
 
 					local Count = 0
 
-					for Idx, Value in ipairs(Values) do
+					for Idx, Value in pairs(Values) do
 						local Table = {}
 						
 						if typeof(Value) == "table" then
