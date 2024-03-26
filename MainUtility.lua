@@ -681,7 +681,7 @@ local ClosureBindings = {
 					TextColor3 = Color3.fromRGB(240, 240, 240),
 					TextSize = 20,
 					TextXAlignment = Enum.TextXAlignment.Center,
-					Size = UDim2.new(1, 0, 0, 22),
+					Size = UDim2.new(1, -45, 0, 22),
 					Position = UDim2.fromOffset(20, 25),
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
@@ -767,6 +767,7 @@ local ClosureBindings = {
 
 				return NewDialog
 			end
+
 
 			return Dialog
 
@@ -1557,8 +1558,8 @@ local ClosureBindings = {
 
 					return Button
 				end
-			
-				
+
+
 				local Logo = New("ImageLabel", {
 					Name = "Icon",
 					Image = "rbxassetid://16741315150",
@@ -1571,7 +1572,7 @@ local ClosureBindings = {
 					Position = UDim2.fromScale(0.5, 0.5),
 					Size = UDim2.fromOffset(32, 32),
 				})
-				
+
 				local LogoHolder = New("Frame", {
 					Name = "Frame",
 					AutomaticSize = Enum.AutomaticSize.XY,
@@ -2814,7 +2815,7 @@ local ClosureBindings = {
 				do 
 					if Config.Toggle then	
 						assert(Config.Toggle and Config.Toggle.Flag, "Colorpicker Toggle - Missing flag!")
-						
+
 						local Toggle = {
 							Value = Config.Toggle.Default or false,
 							Callback = Config.Toggle.Callback or function(Value) end,
@@ -2830,15 +2831,15 @@ local ClosureBindings = {
 							Visible = true,
 							ImageTransparency = 0,
 							ImageColor3 = Color3.fromRGB(255,255,255),
-							
+
 						})
-						
+
 						local ToggleInteract = New("TextButton", {
 							Size = UDim2.new(1, 0, 1, 0),
 							BackgroundTransparency = 1,
 							TextTransparency = 1
 						})
-						
+
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
@@ -2864,7 +2865,7 @@ local ClosureBindings = {
 							ToggleBorder
 						})
 
-					
+
 
 						function Toggle:OnChanged(Func)
 							Toggle.Changed = Func
@@ -2889,7 +2890,7 @@ local ClosureBindings = {
 
 						ToggleInteract.MouseButton1Click:Connect(
 							function(InputObject)
-									Toggle:SetValue(not Toggle.Value)
+								Toggle:SetValue(not Toggle.Value)
 							end
 						)
 
@@ -2967,7 +2968,7 @@ local ClosureBindings = {
 						ImageColor3 = "SubText",
 					},
 				})
-				
+
 				local DropdownSearch = New("ImageLabel", {
 					Image = "http://www.roblox.com/asset/?id=16792751412",
 					Size = UDim2.fromOffset(16, 16),
@@ -3081,7 +3082,7 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					if #DropdownScrollFrame:GetChildren() <=5 then
+					if #DropdownScrollFrame:GetChildren() <= 5 then
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
 					else
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
@@ -3101,7 +3102,7 @@ local ClosureBindings = {
 					task.wait(0.05);
 					Dropdown:Open()
 				end)
-				
+
 				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function()
 					task.wait(0.05);
 					Dropdown:Open()
@@ -3164,13 +3165,13 @@ local ClosureBindings = {
 
 						local Count = 0
 
-						for Idx, Value in pairs(Values) do
+						for Idx, Value in ipairs(Values) do
 							if typeof(Value) == "table" then
 								Value = Value[2]
 							end
 							if string.find(string.lower(Value), string.lower(Textbox.Frame.Frame.TextBox.Text)) then
 								local Table = {}
-							
+
 
 								Count = Count + 1
 
@@ -3298,7 +3299,7 @@ local ClosureBindings = {
 								Table:UpdateButton()
 
 								Buttons[Button] = Table
-								
+
 								RecalculateCanvasSize()
 								RecalculateListSize()
 							end
@@ -3370,9 +3371,9 @@ local ClosureBindings = {
 
 					local Count = 0
 
-					for Idx, Value in pairs(Values) do
+					for Idx, Value in ipairs(Values) do
 						local Table = {}
-						
+
 						if typeof(Value) == "table" then
 							Value = Value[2]
 						end
@@ -3611,163 +3612,310 @@ local ClosureBindings = {
 
 		end)() end,
 	[23] = function()local wax,script,require=ImportGlobals(23)local ImportGlobals return (function(...)local Root = script.Parent.Parent
-		local Components = Root.Components
-		local Flipper = require(Root.Packages.Flipper)
-		local Creator = require(Root.Creator)
+			local Components = Root.Components
+			local Flipper = require(Root.Packages.Flipper)
+			local Creator = require(Root.Creator)
 
-		local TweenService = game:GetService("TweenService")
-		local UserInputService = game:GetService("UserInputService")
-		local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
-		local Camera = game:GetService("Workspace").CurrentCamera
+			local TweenService = game:GetService("TweenService")
+			local UserInputService = game:GetService("UserInputService")
+			local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+			local Camera = game:GetService("Workspace").CurrentCamera
 
-		local Root = script.Parent.Parent
-		local Creator = require(Root.Creator)
-		local Flipper = require(Root.Packages.Flipper)
+			local Root = script.Parent.Parent
+			local Creator = require(Root.Creator)
+			local Flipper = require(Root.Packages.Flipper)
 
-		local New = Creator.New
-		local Components = Root.Components
+			local New = Creator.New
+			local Components = Root.Components
 
-		local DualLabel = {}
-		DualLabel.__index = DualLabel
-		DualLabel.__type = "DualLabel"
+			local DualLabel = {}
+			DualLabel.__index = DualLabel
+			DualLabel.__type = "DualLabel"
 
-		function DualLabel:New(Config)
-			local DualLabel = require(Components.Element)(Config[1].Label1.Title, Config[1].Label1.Content, DualLabel.Container, false)
-			DualLabel.Frame.BackgroundTransparency = 0.92
-			DualLabel.Border.Transparency = 0.6
-			DualLabel.LabelHolder:Destroy()
+			function DualLabel:New(Config)
+				local DualLabel = require(Components.Element)(Config[1].Label1.Title, Config[1].Label1.Content, DualLabel.Container, false)
+				DualLabel.Frame.BackgroundTransparency = 0.92
+				DualLabel.Border.Transparency = 0.6
+				DualLabel.LabelHolder:Destroy()
 
-			New("UIListLayout", {
-				Parent = DualLabel.Frame
-			})
-
-			for _,v in pairs(Config) do
-				print(v)
-
-				local Holder = New("Frame", {
-					Name = "Holder",
-					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0,0,0,0),
-					Size = UDim2.new(1,0,0,0),
+				New("UIListLayout", {
 					Parent = DualLabel.Frame
 				})
 
-				do
-					local TitleLabel = New("TextLabel", {
-						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-						Text =  v.Label1.Title,
-						TextColor3 = Color3.fromRGB(240, 240, 240),
-						TextSize = 13,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						Size = UDim2.new(1, 0, 0, 14),
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 1,
-						ThemeTag = {
-							TextColor3 = "Text",
-						},
-					})
+				for _,v in pairs(Config) do
+					print(v)
 
-					local DescLabel = New("TextLabel", {
-						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
-						Text =  v.Label1.Content,
-						TextColor3 = Color3.fromRGB(200, 200, 200),
-						TextSize = 12,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						RichText = true,
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						AutomaticSize = Enum.AutomaticSize.Y,
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, 14),
-						ThemeTag = {
-							TextColor3 = "SubText",
-						},
-					})
-
-					local LabelHolder = New("Frame", {
+					local Holder = New("Frame", {
+						Name = "Holder",
 						AutomaticSize = Enum.AutomaticSize.Y,
 						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 10, 0, 0),
-						Size = UDim2.new(0, 150, 0, 0),
-						AnchorPoint = Vector2.new(0, 0),
-						Parent = Holder
-					}, {
-						New("UIListLayout", {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-						New("UIPadding", {
-							PaddingBottom = UDim.new(0, 13),
-							PaddingTop = UDim.new(0, 13),
-						}),
-						TitleLabel,
-						DescLabel,
-					})
-				end
-
-				do 
-					local TitleLabel = New("TextLabel", {
-						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
-						Text =  v.Label2.Title,
-						TextColor3 = Color3.fromRGB(240, 240, 240),
-						TextSize = 13,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						Size = UDim2.new(1, 0, 0, 14),
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 1,
-						ThemeTag = {
-							TextColor3 = "Text",
-						},
+						Position = UDim2.new(0,0,0,0),
+						Size = UDim2.new(1,0,0,0),
+						Parent = DualLabel.Frame
 					})
 
-					local DescLabel = New("TextLabel", {
-						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
-						Text =  v.Label2.Content,
-						TextColor3 = Color3.fromRGB(200, 200, 200),
-						TextSize = 12,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						RichText = true,
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						AutomaticSize = Enum.AutomaticSize.Y,
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, 0, 0, 14),
-						ThemeTag = {
-							TextColor3 = "SubText",
-						},
-					})
+					do
+						local TitleLabel = New("TextLabel", {
+							FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+							Text =  v.Label1.Title,
+							TextColor3 = Color3.fromRGB(240, 240, 240),
+							TextSize = 13,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							Size = UDim2.new(1, 0, 0, 14),
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							ThemeTag = {
+								TextColor3 = "Text",
+							},
+						})
 
-					local LabelHolder = New("Frame", {
-						AutomaticSize = Enum.AutomaticSize.Y,
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 1,
-						Position = UDim2.new(1, -20, 0, 0),
-						Size = UDim2.new(0, 150, 0, 0),
-						AnchorPoint = Vector2.new(1, 0),
-						Parent = Holder
-					}, {
-						New("UIListLayout", {
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							VerticalAlignment = Enum.VerticalAlignment.Center,
-						}),
-						New("UIPadding", {
-							PaddingBottom = UDim.new(0, 13),
-							PaddingTop = UDim.new(0, 13),
-						}),
-						TitleLabel,
-						DescLabel,
-					})
+						local DescLabel = New("TextLabel", {
+							FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+							Text =  v.Label1.Content,
+							TextColor3 = Color3.fromRGB(200, 200, 200),
+							TextSize = 12,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							RichText = true,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, 14),
+							ThemeTag = {
+								TextColor3 = "SubText",
+							},
+						})
+
+						local LabelHolder = New("Frame", {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							Position = UDim2.new(0, 10, 0, 0),
+							Size = UDim2.new(0, 150, 0, 0),
+							AnchorPoint = Vector2.new(0, 0),
+							Parent = Holder
+						}, {
+							New("UIListLayout", {
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+							}),
+							New("UIPadding", {
+								PaddingBottom = UDim.new(0, 13),
+								PaddingTop = UDim.new(0, 13),
+							}),
+							TitleLabel,
+							DescLabel,
+						})
+					end
+
+					do 
+						local TitleLabel = New("TextLabel", {
+							FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+							Text =  v.Label2.Title,
+							TextColor3 = Color3.fromRGB(240, 240, 240),
+							TextSize = 13,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							Size = UDim2.new(1, 0, 0, 14),
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							ThemeTag = {
+								TextColor3 = "Text",
+							},
+						})
+
+						local DescLabel = New("TextLabel", {
+							FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+							Text =  v.Label2.Content,
+							TextColor3 = Color3.fromRGB(200, 200, 200),
+							TextSize = 12,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							RichText = true,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							AutomaticSize = Enum.AutomaticSize.Y,
+							BackgroundTransparency = 1,
+							Size = UDim2.new(1, 0, 0, 14),
+							ThemeTag = {
+								TextColor3 = "SubText",
+							},
+						})
+
+						local LabelHolder = New("Frame", {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+							BackgroundTransparency = 1,
+							Position = UDim2.new(1, -20, 0, 0),
+							Size = UDim2.new(0, 150, 0, 0),
+							AnchorPoint = Vector2.new(1, 0),
+							Parent = Holder
+						}, {
+							New("UIListLayout", {
+								SortOrder = Enum.SortOrder.LayoutOrder,
+								VerticalAlignment = Enum.VerticalAlignment.Center,
+							}),
+							New("UIPadding", {
+								PaddingBottom = UDim.new(0, 13),
+								PaddingTop = UDim.new(0, 13),
+							}),
+							TitleLabel,
+							DescLabel,
+						})
+					end
 				end
 			end
-		end
 
-		return DualLabel
+			return DualLabel
 
-	end)() end,
-	[24] = function()local wax,script,require=ImportGlobals(24)local ImportGlobals return (function(...)local UserInputService = game:GetService("UserInputService")
+		end)() end,
+	[24] = function()local wax,script,require=ImportGlobals(24)local ImportGlobals return (function(...)local Root = script.Parent.Parent
+			local Creator = require(Root.Creator)
+
+			local New = Creator.New
+			local AddSignal = Creator.AddSignal
+			local Components = Root.Components
+
+			local UserInputService = game:GetService("UserInputService")
+
+			local Element = {}
+			Element.__index = Element
+			Element.__type = "Input"
+
+			function Element:New(Idx, Config)
+				local Library = self.Library
+				assert(Config.Title, "Input - Missing Title")
+				Config.Callback = Config.Callback or function() end
+
+				local Input = {
+					Value = Config.Default or "",
+					Numeric = Config.Numeric or false,
+					Finished = Config.Finished or false,
+					AutoFill = Config.AutoFill or false, -- NEW PARAMETER
+					PlayersList = Config.PlayersList or false, -- NEW PARAMETER
+					Callback = Config.Callback or function(Value) end,
+					Type = "Input",
+				}
+
+				local InputFrame = require(Components.Element)(Config.Title, Config.Description, self.Container, false)
+
+				Input.SetTitle = InputFrame.SetTitle
+				Input.SetDesc = InputFrame.SetDesc
+
+				local Textbox = require(Components.Textbox)(InputFrame.Frame, true)
+				Textbox.Frame.Position = UDim2.new(1, -10, 0.5, 0)
+				Textbox.Frame.AnchorPoint = Vector2.new(1, 0.5)
+				Textbox.Frame.Size = UDim2.fromOffset(160, 30)
+				Textbox.Input.Text = Config.Default or ""
+				Textbox.Input.PlaceholderText = Config.Placeholder or ""
+
+
+				local TextDisplay = New("TextLabel", {
+					FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
+					Text = "",
+					TextColor3 = Color3.fromRGB(150, 150, 150),
+					TextSize = 14,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Size = UDim2.new(1, 0, 1, 0),
+					Position = UDim2.new(0, 2, 0, 0), 	
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 1,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					ThemeTag = {
+						TextColor3 = "Text",
+					},
+					Visible = true,
+					Parent = Textbox.Input.Parent,
+				})
+
+
+				local Box = Textbox.Input
+				local prediction = ""
+
+				function Input:SetValue(Text, predict)
+					prediction = ""
+					TextDisplay.Text = ""
+					if Config.MaxLength and #Text > Config.MaxLength then
+						Text = Text:sub(1, Config.MaxLength)
+					end
+
+					if Input.Numeric then
+						if (not tonumber(Text)) and Text:len() > 0 then
+							Text = Input.Value
+						end
+					end
+
+					if Input.PlayersList and Input.AutoFill and predict and Box.Text ~= "" then
+						local playerFound = false
+
+						for _, player in pairs(Input.PlayersList) do
+							if type(player) == "string" and player:lower():find(Text:lower(), 1, true) == 1 then
+								prediction = player
+								break
+							else
+								prediction = ""
+							end
+						end
+						print('PRedicatin Result', Text, prediction)
+						TextDisplay.Text = prediction
+					end
+
+
+					Input.Value = Text
+					Box.Text = Text
+
+					Library:SafeCallback(Input.Callback, Input.Value)
+					Library:SafeCallback(Input.Changed, Input.Value)
+				end
+
+				if Input.Finished then
+					AddSignal(Box.FocusLost, function(enter)
+						TextDisplay.Text = ""
+						Input:SetValue(Box.Text, false)
+					end)
+				else
+					AddSignal(Box:GetPropertyChangedSignal("Text"), function()
+						TextDisplay.Text = ""
+						Input:SetValue(Box.Text, true)
+					end)
+				end
+
+				function Input:OnChanged(Func)
+					Input.Changed = Func
+					Func(Input.Value)
+				end
+
+				function Input:Destroy()
+					InputFrame:Destroy()
+					Library.Options[Idx] = nil
+				end
+
+				UserInputService.InputBegan:Connect(function(input)
+					if input.KeyCode == Enum.KeyCode.Return then
+						if prediction ~= "" then	
+
+							Input.Value = prediction
+							Box.Text = prediction
+							prediction = ""
+
+							Library:SafeCallback(Input.Callback, Input.Value)
+							Library:SafeCallback(Input.Changed, Input.Value)
+						end
+					end
+				end)
+				task.spawn(function()
+					while wait() do
+						TextDisplay.Visible = Textbox.Input:IsFocused()
+					end
+				end)
+
+				Library.Options[Idx] = Input
+				return Input
+			end
+
+			return Element
+
+		end)() end,
+	[25] = function()local wax,script,require=ImportGlobals(25)local ImportGlobals return (function(...)local UserInputService = game:GetService("UserInputService")
 
 			local Root = script.Parent.Parent
 			local Creator = require(Root.Creator)
@@ -3974,10 +4122,12 @@ local ClosureBindings = {
 			return Element
 
 		end)() end,
-	[25] = function()local wax,script,require=ImportGlobals(25)local ImportGlobals return (function(...)local Root = script.Parent.Parent
+	[26] = function()local wax,script,require=ImportGlobals(26)local ImportGlobals return (function(...)local Root = script.Parent.Parent
 			local Components = Root.Components
 			local Flipper = require(Root.Packages.Flipper)
 			local Creator = require(Root.Creator)
+
+
 
 			local Paragraph = {}
 			Paragraph.__index = Paragraph
@@ -3997,7 +4147,7 @@ local ClosureBindings = {
 			return Paragraph
 
 		end)() end,
-	[26] = function()local wax,script,require=ImportGlobals(26)local ImportGlobals return (function(...)local UserInputService = game:GetService("UserInputService")
+	[27] = function()local wax,script,require=ImportGlobals(27)local ImportGlobals return (function(...)local UserInputService = game:GetService("UserInputService")
 			local Root = script.Parent.Parent
 			local Creator = require(Root.Creator)
 
@@ -4154,7 +4304,7 @@ local ClosureBindings = {
 				Slider:SetValue(Config.Default)
 
 				Library.Options[Idx] = Slider
-				
+
 				-- TOGGLE
 				do 
 					if Config.Toggle then	
@@ -4183,7 +4333,7 @@ local ClosureBindings = {
 							BackgroundTransparency = 1,
 							TextTransparency = 1
 						})
-						
+
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
@@ -4243,14 +4393,14 @@ local ClosureBindings = {
 						Library.Options[Config.Toggle.Flag] = Toggle
 					end
 				end
-				
+
 				return Slider
 			end
 
 			return Element
 
 		end)() end,
-	[27] = function()local wax,script,require=ImportGlobals(27)local ImportGlobals return (function(...)local TweenService = game:GetService("TweenService")
+	[28] = function()local wax,script,require=ImportGlobals(28)local ImportGlobals return (function(...)local TweenService = game:GetService("TweenService")
 			local Root = script.Parent.Parent
 			local Creator = require(Root.Creator)
 
@@ -4357,7 +4507,7 @@ local ClosureBindings = {
 			return Element
 
 		end)() end,
-	[28] = function()local wax,script,require=ImportGlobals(28)local ImportGlobals return (function(...)-- This file was @generated by Tarmac. It is not intended for manual editing.
+	[29] = function()local wax,script,require=ImportGlobals(29)local ImportGlobals return (function(...)-- This file was @generated by Tarmac. It is not intended for manual editing.
 			return {
 				assets = {
 					["lucide-accessibility"] = "rbxassetid://10709751939",
@@ -5182,7 +5332,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[30] = function()local wax,script,require=ImportGlobals(30)local ImportGlobals return (function(...)local Flipper = {
+	[31] = function()local wax,script,require=ImportGlobals(31)local ImportGlobals return (function(...)local Flipper = {
 			SingleMotor = require(script.SingleMotor),
 			GroupMotor = require(script.GroupMotor),
 
@@ -5196,7 +5346,7 @@ local ClosureBindings = {
 			return Flipper
 
 		end)() end,
-	[31] = function()local wax,script,require=ImportGlobals(31)local ImportGlobals return (function(...)local RunService = game:GetService("RunService")
+	[32] = function()local wax,script,require=ImportGlobals(32)local ImportGlobals return (function(...)local RunService = game:GetService("RunService")
 
 			local Signal = require(script.Parent.Signal)
 
@@ -5253,7 +5403,7 @@ local ClosureBindings = {
 			return BaseMotor
 
 		end)() end,
-	[32] = function()local wax,script,require=ImportGlobals(32)local ImportGlobals return (function(...)return function()
+	[33] = function()local wax,script,require=ImportGlobals(33)local ImportGlobals return (function(...)return function()
 				local RunService = game:GetService("RunService")
 
 				local BaseMotor = require(script.Parent.BaseMotor)
@@ -5294,7 +5444,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[33] = function()local wax,script,require=ImportGlobals(33)local ImportGlobals return (function(...)local BaseMotor = require(script.Parent.BaseMotor)
+	[34] = function()local wax,script,require=ImportGlobals(34)local ImportGlobals return (function(...)local BaseMotor = require(script.Parent.BaseMotor)
 			local SingleMotor = require(script.Parent.SingleMotor)
 
 			local isMotor = require(script.Parent.isMotor)
@@ -5406,7 +5556,7 @@ local ClosureBindings = {
 			return GroupMotor
 
 		end)() end,
-	[34] = function()local wax,script,require=ImportGlobals(34)local ImportGlobals return (function(...)return function()
+	[35] = function()local wax,script,require=ImportGlobals(35)local ImportGlobals return (function(...)return function()
 				local GroupMotor = require(script.Parent.GroupMotor)
 
 				local Instant = require(script.Parent.Instant)
@@ -5491,7 +5641,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[35] = function()local wax,script,require=ImportGlobals(35)local ImportGlobals return (function(...)local Instant = {}
+	[36] = function()local wax,script,require=ImportGlobals(36)local ImportGlobals return (function(...)local Instant = {}
 			Instant.__index = Instant
 
 			function Instant.new(targetValue)
@@ -5510,7 +5660,7 @@ local ClosureBindings = {
 			return Instant
 
 		end)() end,
-	[36] = function()local wax,script,require=ImportGlobals(36)local ImportGlobals return (function(...)return function()
+	[37] = function()local wax,script,require=ImportGlobals(37)local ImportGlobals return (function(...)return function()
 				local Instant = require(script.Parent.Instant)
 
 				it("should return a completed state with the provided value", function()
@@ -5522,7 +5672,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[37] = function()local wax,script,require=ImportGlobals(37)local ImportGlobals return (function(...)local Linear = {}
+	[38] = function()local wax,script,require=ImportGlobals(38)local ImportGlobals return (function(...)local Linear = {}
 			Linear.__index = Linear
 
 			function Linear.new(targetValue, options)
@@ -5560,7 +5710,7 @@ local ClosureBindings = {
 			return Linear
 
 		end)() end,
-	[38] = function()local wax,script,require=ImportGlobals(38)local ImportGlobals return (function(...)return function()
+	[39] = function()local wax,script,require=ImportGlobals(39)local ImportGlobals return (function(...)return function()
 				local SingleMotor = require(script.Parent.SingleMotor)
 				local Linear = require(script.Parent.Linear)
 
@@ -5619,7 +5769,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[39] = function()local wax,script,require=ImportGlobals(39)local ImportGlobals return (function(...)local Connection = {}
+	[40] = function()local wax,script,require=ImportGlobals(40)local ImportGlobals return (function(...)local Connection = {}
 			Connection.__index = Connection
 
 			function Connection.new(signal, handler)
@@ -5679,7 +5829,7 @@ local ClosureBindings = {
 			return Signal
 
 		end)() end,
-	[40] = function()local wax,script,require=ImportGlobals(40)local ImportGlobals return (function(...)return function()
+	[41] = function()local wax,script,require=ImportGlobals(41)local ImportGlobals return (function(...)return function()
 				local Signal = require(script.Parent.Signal)
 
 				it("should invoke all connections, instantly", function()
@@ -5730,7 +5880,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[41] = function()local wax,script,require=ImportGlobals(41)local ImportGlobals return (function(...)local BaseMotor = require(script.Parent.BaseMotor)
+	[42] = function()local wax,script,require=ImportGlobals(42)local ImportGlobals return (function(...)local BaseMotor = require(script.Parent.BaseMotor)
 
 			local SingleMotor = setmetatable({}, BaseMotor)
 			SingleMotor.__index = SingleMotor
@@ -5799,7 +5949,7 @@ local ClosureBindings = {
 			return SingleMotor
 
 		end)() end,
-	[42] = function()local wax,script,require=ImportGlobals(42)local ImportGlobals return (function(...)return function()
+	[43] = function()local wax,script,require=ImportGlobals(43)local ImportGlobals return (function(...)return function()
 				local SingleMotor = require(script.Parent.SingleMotor)
 				local Instant = require(script.Parent.Instant)
 
@@ -5846,7 +5996,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[43] = function()local wax,script,require=ImportGlobals(43)local ImportGlobals return (function(...)local VELOCITY_THRESHOLD = 0.001
+	[44] = function()local wax,script,require=ImportGlobals(44)local ImportGlobals return (function(...)local VELOCITY_THRESHOLD = 0.001
 			local POSITION_THRESHOLD = 0.001
 
 			local EPS = 0.0001
@@ -5955,7 +6105,7 @@ local ClosureBindings = {
 			return Spring
 
 		end)() end,
-	[44] = function()local wax,script,require=ImportGlobals(44)local ImportGlobals return (function(...)return function()
+	[45] = function()local wax,script,require=ImportGlobals(45)local ImportGlobals return (function(...)return function()
 				local SingleMotor = require(script.Parent.SingleMotor)
 				local Spring = require(script.Parent.Spring)
 
@@ -5992,7 +6142,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[45] = function()local wax,script,require=ImportGlobals(45)local ImportGlobals return (function(...)local function isMotor(value)
+	[46] = function()local wax,script,require=ImportGlobals(46)local ImportGlobals return (function(...)local function isMotor(value)
 				local motorType = tostring(value):match("^Motor%((.+)%)$")
 
 				if motorType then
@@ -6005,7 +6155,7 @@ local ClosureBindings = {
 			return isMotor
 
 		end)() end,
-	[46] = function()local wax,script,require=ImportGlobals(46)local ImportGlobals return (function(...)return function()
+	[47] = function()local wax,script,require=ImportGlobals(47)local ImportGlobals return (function(...)return function()
 				local isMotor = require(script.Parent.isMotor)
 
 				local SingleMotor = require(script.Parent.SingleMotor)
@@ -6033,7 +6183,7 @@ local ClosureBindings = {
 			end
 
 		end)() end,
-	[47] = function()local wax,script,require=ImportGlobals(47)local ImportGlobals return (function(...)local Themes = {
+	[48] = function()local wax,script,require=ImportGlobals(48)local ImportGlobals return (function(...)local Themes = {
 			Names = {
 				"Dark",
 				"Darker",
@@ -6052,7 +6202,7 @@ local ClosureBindings = {
 			return Themes
 
 		end)() end,
-	[48] = function()local wax,script,require=ImportGlobals(48)local ImportGlobals return (function(...)return {
+	[49] = function()local wax,script,require=ImportGlobals(49)local ImportGlobals return (function(...)return {
 			Name = "Amethyst",
 			Accent = Color3.fromRGB(97, 62, 167),
 
@@ -6101,7 +6251,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[49] = function()local wax,script,require=ImportGlobals(49)local ImportGlobals return (function(...)return {
+	[50] = function()local wax,script,require=ImportGlobals(50)local ImportGlobals return (function(...)return {
 			Name = "Aqua",
 			Accent = Color3.fromRGB(60, 165, 165),
 
@@ -6150,7 +6300,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[50] = function()local wax,script,require=ImportGlobals(50)local ImportGlobals return (function(...)return {
+	[51] = function()local wax,script,require=ImportGlobals(51)local ImportGlobals return (function(...)return {
 			Name = "Dark",
 			Accent = Color3.fromRGB(96, 205, 255),
 
@@ -6199,7 +6349,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[51] = function()local wax,script,require=ImportGlobals(51)local ImportGlobals return (function(...)return {
+	[52] = function()local wax,script,require=ImportGlobals(52)local ImportGlobals return (function(...)return {
 			Name = "Darker",
 			Accent = Color3.fromRGB(72, 138, 182),
 
@@ -6231,7 +6381,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[52] = function()local wax,script,require=ImportGlobals(52)local ImportGlobals return (function(...)return {
+	[53] = function()local wax,script,require=ImportGlobals(53)local ImportGlobals return (function(...)return {
 			Name = "Light",
 			Accent = Color3.fromRGB(0, 103, 192),
 
@@ -6280,7 +6430,7 @@ local ClosureBindings = {
 			}
 
 		end)() end,
-	[53] = function()local wax,script,require=ImportGlobals(53)local ImportGlobals return (function(...)return {
+	[54] = function()local wax,script,require=ImportGlobals(54)local ImportGlobals return (function(...)return {
 			Name = "Rose",
 			Accent = Color3.fromRGB(180, 55, 90),
 
@@ -6341,351 +6491,12 @@ local ObjectTree = {
 		},
 		{
 			{
-				18,
-				2,
-				{
-					"Creator"
-				}
-			},
-			{
-				29,
-				1,
-				{
-					"Packages"
-				},
-				{
-					{
-						30,
-						2,
-						{
-							"Flipper"
-						},
-						{
-							{
-								31,
-								2,
-								{
-									"BaseMotor"
-								}
-							},
-							{
-								38,
-								2,
-								{
-									"Linear.spec"
-								}
-							},
-							{
-								46,
-								2,
-								{
-									"isMotor.spec"
-								}
-							},
-							{
-								34,
-								2,
-								{
-									"GroupMotor.spec"
-								}
-							},
-							{
-								36,
-								2,
-								{
-									"Instant.spec"
-								}
-							},
-							{
-								45,
-								2,
-								{
-									"isMotor"
-								}
-							},
-							{
-								42,
-								2,
-								{
-									"SingleMotor.spec"
-								}
-							},
-							{
-								44,
-								2,
-								{
-									"Spring.spec"
-								}
-							},
-							{
-								43,
-								2,
-								{
-									"Spring"
-								}
-							},
-							{
-								41,
-								2,
-								{
-									"SingleMotor"
-								}
-							},
-							{
-								32,
-								2,
-								{
-									"BaseMotor.spec"
-								}
-							},
-							{
-								33,
-								2,
-								{
-									"GroupMotor"
-								}
-							},
-							{
-								35,
-								2,
-								{
-									"Instant"
-								}
-							},
-							{
-								37,
-								2,
-								{
-									"Linear"
-								}
-							},
-							{
-								39,
-								2,
-								{
-									"Signal"
-								}
-							},
-							{
-								40,
-								2,
-								{
-									"Signal.spec"
-								}
-							}
-						}
-					}
-				}
-			},
-			{
-				19,
-				2,
-				{
-					"Elements"
-				},
-				{
-					{
-						22,
-						2,
-						{
-							"Dropdown"
-						}
-					},
-					{
-						20,
-						2,
-						{
-							"Button"
-						}
-					},
-					{
-						24,
-						2,
-						{
-							"Keybind"
-						}
-					},
-					{
-						23,
-						2,
-						{
-							"Input"
-						}
-					},
-					{
-						27,
-						2,
-						{
-							"Toggle"
-						}
-					},
-					{
-						25,
-						2,
-						{
-							"Paragraph"
-						}
-					},
-					{
-						21,
-						2,
-						{
-							"Colorpicker"
-						}
-					},
-					{
-						26,
-						2,
-						{
-							"Slider"
-						}
-					}
-				}
-			},
-			{
-				47,
-				2,
-				{
-					"Themes"
-				},
-				{
-					{
-						50,
-						2,
-						{
-							"Dark"
-						}
-					},
-					{
-						48,
-						2,
-						{
-							"Amethyst"
-						}
-					},
-					{
-						53,
-						2,
-						{
-							"Rose"
-						}
-					},
-					{
-						49,
-						2,
-						{
-							"Aqua"
-						}
-					},
-					{
-						52,
-						2,
-						{
-							"Light"
-						}
-					},
-					{
-						51,
-						2,
-						{
-							"Darker"
-						}
-					}
-				}
-			},
-			{
-				2,
-				2,
-				{
-					"Acrylic"
-				},
-				{
-					{
-						3,
-						2,
-						{
-							"AcrylicBlur"
-						}
-					},
-					{
-						6,
-						2,
-						{
-							"Utils"
-						}
-					},
-					{
-						4,
-						2,
-						{
-							"AcrylicPaint"
-						}
-					},
-					{
-						5,
-						2,
-						{
-							"CreateAcrylic"
-						}
-					}
-				}
-			},
-			{
 				7,
 				1,
 				{
 					"Components"
 				},
 				{
-					{
-						8,
-						2,
-						{
-							"Assets"
-						}
-					},
-					{
-						15,
-						2,
-						{
-							"Textbox"
-						}
-					},
-					{
-						11,
-						2,
-						{
-							"Element"
-						}
-					},
-					{
-						9,
-						2,
-						{
-							"Button"
-						}
-					},
-					{
-						12,
-						2,
-						{
-							"Notification"
-						}
-					},
-					{
-						14,
-						2,
-						{
-							"Tab"
-						}
-					},
-					{
-						10,
-						2,
-						{
-							"Dialog"
-						}
-					},
 					{
 						17,
 						2,
@@ -6701,19 +6512,365 @@ local ObjectTree = {
 						}
 					},
 					{
+						10,
+						2,
+						{
+							"Dialog"
+						}
+					},
+					{
+						14,
+						2,
+						{
+							"Tab"
+						}
+					},
+					{
+						15,
+						2,
+						{
+							"Textbox"
+						}
+					},
+					{
+						12,
+						2,
+						{
+							"Notification"
+						}
+					},
+					{
+						9,
+						2,
+						{
+							"Button"
+						}
+					},
+					{
+						8,
+						2,
+						{
+							"Assets"
+						}
+					},
+					{
 						13,
 						2,
 						{
 							"Section"
 						}
+					},
+					{
+						11,
+						2,
+						{
+							"Element"
+						}
 					}
 				}
 			},
 			{
-				28,
+				18,
+				2,
+				{
+					"Creator"
+				}
+			},
+			{
+				2,
+				2,
+				{
+					"Acrylic"
+				},
+				{
+					{
+						6,
+						2,
+						{
+							"Utils"
+						}
+					},
+					{
+						4,
+						2,
+						{
+							"AcrylicPaint"
+						}
+					},
+					{
+						3,
+						2,
+						{
+							"AcrylicBlur"
+						}
+					},
+					{
+						5,
+						2,
+						{
+							"CreateAcrylic"
+						}
+					}
+				}
+			},
+			{
+				19,
+				2,
+				{
+					"Elements"
+				},
+				{
+					{
+						28,
+						2,
+						{
+							"Toggle"
+						}
+					},
+					{
+						24,
+						2,
+						{
+							"Input"
+						}
+					},
+					{
+						20,
+						2,
+						{
+							"Button"
+						}
+					},
+					{
+						26,
+						2,
+						{
+							"Paragraph"
+						}
+					},
+					{
+						25,
+						2,
+						{
+							"Keybind"
+						}
+					},
+					{
+						27,
+						2,
+						{
+							"Slider"
+						}
+					},
+					{
+						21,
+						2,
+						{
+							"Colorpicker"
+						}
+					},
+					{
+						22,
+						2,
+						{
+							"Dropdown"
+						}
+					},
+					{
+						23,
+						2,
+						{
+							"DualLabel"
+						}
+					}
+				}
+			},
+			{
+				48,
+				2,
+				{
+					"Themes"
+				},
+				{
+					{
+						52,
+						2,
+						{
+							"Darker"
+						}
+					},
+					{
+						54,
+						2,
+						{
+							"Rose"
+						}
+					},
+					{
+						53,
+						2,
+						{
+							"Light"
+						}
+					},
+					{
+						51,
+						2,
+						{
+							"Dark"
+						}
+					},
+					{
+						50,
+						2,
+						{
+							"Aqua"
+						}
+					},
+					{
+						49,
+						2,
+						{
+							"Amethyst"
+						}
+					}
+				}
+			},
+			{
+				29,
 				2,
 				{
 					"Icons"
+				}
+			},
+			{
+				30,
+				1,
+				{
+					"Packages"
+				},
+				{
+					{
+						31,
+						2,
+						{
+							"Flipper"
+						},
+						{
+							{
+								35,
+								2,
+								{
+									"GroupMotor.spec"
+								}
+							},
+							{
+								33,
+								2,
+								{
+									"BaseMotor.spec"
+								}
+							},
+							{
+								47,
+								2,
+								{
+									"isMotor.spec"
+								}
+							},
+							{
+								46,
+								2,
+								{
+									"isMotor"
+								}
+							},
+							{
+								36,
+								2,
+								{
+									"Instant"
+								}
+							},
+							{
+								44,
+								2,
+								{
+									"Spring"
+								}
+							},
+							{
+								43,
+								2,
+								{
+									"SingleMotor.spec"
+								}
+							},
+							{
+								42,
+								2,
+								{
+									"SingleMotor"
+								}
+							},
+							{
+								34,
+								2,
+								{
+									"GroupMotor"
+								}
+							},
+							{
+								37,
+								2,
+								{
+									"Instant.spec"
+								}
+							},
+							{
+								39,
+								2,
+								{
+									"Linear.spec"
+								}
+							},
+							{
+								41,
+								2,
+								{
+									"Signal.spec"
+								}
+							},
+							{
+								40,
+								2,
+								{
+									"Signal"
+								}
+							},
+							{
+								38,
+								2,
+								{
+									"Linear"
+								}
+							},
+							{
+								45,
+								2,
+								{
+									"Spring.spec"
+								}
+							},
+							{
+								32,
+								2,
+								{
+									"BaseMotor"
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -6731,48 +6888,49 @@ local LineOffsets = {
 	[8] = 532,
 	[9] = 540,
 	[10] = 618,
-	[11] = 788,
-	[12] = 927,
-	[13] = 1131,
-	[14] = 1182,
-	[15] = 1384,
-	[16] = 1506,
-	[17] = 1665,
-	[18] = 2063,
-	[19] = 2240,
-	[20] = 2249,
-	[21] = 2287,
-	[22] = 2801,
-	[23] = 3475,
-	[24] = 3561,
-	[25] = 3768,
-	[26] = 3791,
-	[27] = 3954,
-	[28] = 4061,
-	[30] = 4886,
-	[31] = 4900,
-	[32] = 4957,
-	[33] = 4998,
-	[34] = 5110,
-	[35] = 5195,
-	[36] = 5214,
-	[37] = 5226,
-	[38] = 5264,
-	[39] = 5323,
-	[40] = 5383,
-	[41] = 5434,
-	[42] = 5503,
-	[43] = 5550,
-	[44] = 5659,
-	[45] = 5696,
-	[46] = 5709,
-	[47] = 5737,
-	[48] = 5756,
-	[49] = 5805,
-	[50] = 5854,
-	[51] = 5903,
-	[52] = 5935,
-	[53] = 5984
+	[11] = 789,
+	[12] = 929,
+	[13] = 1133,
+	[14] = 1184,
+	[15] = 1386,
+	[16] = 1508,
+	[17] = 1695,
+	[18] = 2095,
+	[19] = 2272,
+	[20] = 2281,
+	[21] = 2319,
+	[22] = 2922,
+	[23] = 3628,
+	[24] = 3785,
+	[25] = 3932,
+	[26] = 4139,
+	[27] = 4164,
+	[28] = 4417,
+	[29] = 4524,
+	[31] = 5349,
+	[32] = 5363,
+	[33] = 5420,
+	[34] = 5461,
+	[35] = 5573,
+	[36] = 5658,
+	[37] = 5677,
+	[38] = 5689,
+	[39] = 5727,
+	[40] = 5786,
+	[41] = 5846,
+	[42] = 5897,
+	[43] = 5966,
+	[44] = 6013,
+	[45] = 6122,
+	[46] = 6159,
+	[47] = 6172,
+	[48] = 6200,
+	[49] = 6219,
+	[50] = 6268,
+	[51] = 6317,
+	[52] = 6366,
+	[53] = 6398,
+	[54] = 6447
 }
 
 -- Misc AOT variable imports
@@ -7224,6 +7382,7 @@ function ImportGlobals(refId)
 					RealIndex = "Parent"
 				end
 
+				-- Don't advance dir if it's just another "/" either
 				if RealIndex ~= "" then
 					local ResultRef = CurrentRefPointer:FindFirstChild(RealIndex)
 					if not ResultRef then
@@ -7240,6 +7399,7 @@ function ImportGlobals(refId)
 					end
 				end
 
+				-- For possible checks next cycle
 				PreviousPathMatch = PathMatch
 			end
 
