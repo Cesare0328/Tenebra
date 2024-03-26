@@ -3643,8 +3643,6 @@ local ClosureBindings = {
 				})
 
 				for _,v in pairs(Config) do
-					print(v)
-
 					local Holder = New("Frame", {
 						Name = "Holder",
 						AutomaticSize = Enum.AutomaticSize.Y,
@@ -3855,7 +3853,6 @@ local ClosureBindings = {
 								prediction = ""
 							end
 						end
-						print('PRedicatin Result', Text, prediction)
 						TextDisplay.Text = prediction
 					end
 
