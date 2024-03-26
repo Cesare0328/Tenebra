@@ -1760,7 +1760,7 @@ local ClosureBindings = {
 					Selector,
 				})
 
-				Window.TabDisplay = New("TextLabel", {
+				--[[Window.TabDisplay = New("TextLabel", {
 					RichText = true,
 					Text = "Tab",
 					TextTransparency = 0,
@@ -1774,7 +1774,7 @@ local ClosureBindings = {
 					ThemeTag = {
 						TextColor3 = "Text",
 					},
-				})
+				})]]
 
 				Window.ContainerHolder = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
