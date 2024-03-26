@@ -8,8 +8,7 @@ local ClosureBindings = {
 			local TweenService = game:GetService("TweenService")
 			local Camera = game:GetService("Workspace").CurrentCamera
 			local Mouse = LocalPlayer:GetMouse()
-            local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
-
+			local UIVersion = loadstring(game:HttpGet("https://raw.githubusercontent.com/Cesare0328/Tenebra/main/TenebraVersion", true))() or "v1.0.0"
 			local Root = script
 			local Creator = require(Root.Creator)
 			local ElementsTable = require(Root.Elements)
@@ -680,8 +679,8 @@ local ClosureBindings = {
 					),
 					Text = "Dialog",
 					TextColor3 = Color3.fromRGB(240, 240, 240),
-					TextSize = 22,
-					TextXAlignment = Enum.TextXAlignment.Left,
+					TextSize = 20,
+					TextXAlignment = Enum.TextXAlignment.Center,
 					Size = UDim2.new(1, 0, 0, 22),
 					Position = UDim2.fromOffset(20, 25),
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -802,6 +801,7 @@ local ClosureBindings = {
 					TextColor3 = Color3.fromRGB(200, 200, 200),
 					TextSize = 12,
 					TextWrapped = true,
+					RichText = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					AutomaticSize = Enum.AutomaticSize.Y,
@@ -1345,7 +1345,7 @@ local ClosureBindings = {
 				TabModule.Tabs[Tab].SetTransparency(0.89)
 				TabModule.Tabs[Tab].Selected = true
 
-				--Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
+				Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
 				Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
 
 				task.spawn(function()
@@ -1592,11 +1592,11 @@ local ClosureBindings = {
 				}, {
 					New("Frame", {
 						Size = UDim2.new(1, -16, 1, 0),
-						Position = UDim2.new(0, 16, 0, 0),
+						Position = UDim2.new(0, 20, 0, 0),
 						BackgroundTransparency = 1,
 					}, {
 						New("UIListLayout", {
-							Padding = UDim.new(0, 5),
+							Padding = UDim.new(0, 0),
 							FillDirection = Enum.FillDirection.Horizontal,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
@@ -1621,7 +1621,7 @@ local ClosureBindings = {
 						}),
 						New("TextLabel", {
 							RichText = true,
-							Text = Config.SubTitle,
+							Text = "  " .. Config.SubTitle,
 							TextTransparency = 0.4,
 							FontFace = Font.new(
 								"rbxasset://fonts/families/GothamSSm.json",
@@ -1786,8 +1786,8 @@ local ClosureBindings = {
 				})
 
 				Window.ContainerCanvas = New("Frame", {
-					Size = UDim2.new(1, -Window.TabWidth - 32, 1, -72),
-					Position = UDim2.fromOffset(Window.TabWidth + 26, 60),
+					Size = UDim2.new(1, -Window.TabWidth - 32, 1, -102),
+					Position = UDim2.fromOffset(Window.TabWidth + 26, 90),
 					BackgroundTransparency = 1,
 				}, {
 					Window.ContainerAnim,
@@ -2024,7 +2024,9 @@ local ClosureBindings = {
 						Text = Config.Content,
 						TextColor3 = Color3.fromRGB(240, 240, 240),
 						TextSize = 14,
-						TextXAlignment = Enum.TextXAlignment.Left,
+						TextWrapped = true,
+						AutomaticSize = Enum.AutomaticSize.Y,
+						TextXAlignment = Enum.TextXAlignment.Center,
 						TextYAlignment = Enum.TextYAlignment.Top,
 						Size = UDim2.new(1, -40, 1, 0),
 						Position = UDim2.fromOffset(20, 60),
@@ -3609,149 +3611,162 @@ local ClosureBindings = {
 
 		end)() end,
 	[23] = function()local wax,script,require=ImportGlobals(23)local ImportGlobals return (function(...)local Root = script.Parent.Parent
-			local Creator = require(Root.Creator)
+		local Components = Root.Components
+		local Flipper = require(Root.Packages.Flipper)
+		local Creator = require(Root.Creator)
 
-			local New = Creator.New
-			local AddSignal = Creator.AddSignal
-			local Components = Root.Components
-			local UserInputService = game:GetService("UserInputService")
-			local Element = {}
-			Element.__index = Element
-			Element.__type = "Input"
+		local TweenService = game:GetService("TweenService")
+		local UserInputService = game:GetService("UserInputService")
+		local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+		local Camera = game:GetService("Workspace").CurrentCamera
 
-			function Element:New(Idx, Config)
-				local Library = self.Library
-				assert(Config.Title, "Input - Missing Title")
-				Config.Callback = Config.Callback or function() end
+		local Root = script.Parent.Parent
+		local Creator = require(Root.Creator)
+		local Flipper = require(Root.Packages.Flipper)
 
-				local Input = {
-					Value = Config.Default or "",
-					Numeric = Config.Numeric or false,
-					Finished = Config.Finished or false,
-					AutoFill = Config.AutoFill or false, -- NEW PARAMETER
-					PlayersList = Config.PlayersList or false, -- NEW PARAMETER
-					Callback = Config.Callback or function(Value) end,
-					Type = "Input",
-				}
+		local New = Creator.New
+		local Components = Root.Components
 
-				local InputFrame = require(Components.Element)(Config.Title, Config.Description, self.Container, false)
+		local DualLabel = {}
+		DualLabel.__index = DualLabel
+		DualLabel.__type = "DualLabel"
 
-				Input.SetTitle = InputFrame.SetTitle
-				Input.SetDesc = InputFrame.SetDesc
+		function DualLabel:New(Config)
+			local DualLabel = require(Components.Element)(Config[1].Label1.Title, Config[1].Label1.Content, DualLabel.Container, false)
+			DualLabel.Frame.BackgroundTransparency = 0.92
+			DualLabel.Border.Transparency = 0.6
+			DualLabel.LabelHolder:Destroy()
 
-				local Textbox = require(Components.Textbox)(InputFrame.Frame, true)
-				Textbox.Frame.Position = UDim2.new(1, -10, 0.5, 0)
-				Textbox.Frame.AnchorPoint = Vector2.new(1, 0.5)
-				Textbox.Frame.Size = UDim2.fromOffset(160, 30)
-				Textbox.Input.Text = Config.Default or ""
-				Textbox.Input.PlaceholderText = Config.Placeholder or ""
-				
+			New("UIListLayout", {
+				Parent = DualLabel.Frame
+			})
 
-				local TextDisplay = New("TextLabel", {
-					FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal),
-					Text = "",
-					TextColor3 = Color3.fromRGB(150, 150, 150),
-					TextSize = 14,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = UDim2.new(0, 2, 0, 0), 	
+			for _,v in pairs(Config) do
+				print(v)
+
+				local Holder = New("Frame", {
+					Name = "Holder",
+					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BackgroundTransparency = 1,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					ThemeTag = {
-						TextColor3 = "Text",
-					},
-					Visible = true,
-					Parent = Textbox.Input.Parent,
+					Position = UDim2.new(0,0,0,0),
+					Size = UDim2.new(1,0,0,0),
+					Parent = DualLabel.Frame
 				})
 
+				do
+					local TitleLabel = New("TextLabel", {
+						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+						Text =  v.Label1.Title,
+						TextColor3 = Color3.fromRGB(240, 240, 240),
+						TextSize = 13,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Size = UDim2.new(1, 0, 0, 14),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						ThemeTag = {
+							TextColor3 = "Text",
+						},
+					})
 
-				local Box = Textbox.Input
-				local prediction = ""
+					local DescLabel = New("TextLabel", {
+						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+						Text =  v.Label1.Content,
+						TextColor3 = Color3.fromRGB(200, 200, 200),
+						TextSize = 12,
+						TextWrapped = true,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						RichText = true,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						AutomaticSize = Enum.AutomaticSize.Y,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 14),
+						ThemeTag = {
+							TextColor3 = "SubText",
+						},
+					})
 
-				function Input:SetValue(Text, predict)
-					prediction = ""
-					TextDisplay.Text = ""
-					if Config.MaxLength and #Text > Config.MaxLength then
-						Text = Text:sub(1, Config.MaxLength)
-					end
-
-					if Input.Numeric then
-						if (not tonumber(Text)) and Text:len() > 0 then
-							Text = Input.Value
-						end
-					end
-
-					if Input.PlayersList and Input.AutoFill and predict and Box.Text ~= "" then
-						local playerFound = false
-
-						for _, player in pairs(Input.PlayersList) do
-							if type(player) == "string" and player:lower():find(Text:lower(), 1, true) == 1 then
-								prediction = player
-								break
-							else
-								prediction = ""
-							end
-						end
-						TextDisplay.Text = prediction
-					end
-
-
-					Input.Value = Text
-					Box.Text = Text
-
-					Library:SafeCallback(Input.Callback, Input.Value)
-					Library:SafeCallback(Input.Changed, Input.Value)
+					local LabelHolder = New("Frame", {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						Position = UDim2.new(0, 10, 0, 0),
+						Size = UDim2.new(0, 150, 0, 0),
+						AnchorPoint = Vector2.new(0, 0),
+						Parent = Holder
+					}, {
+						New("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
+						New("UIPadding", {
+							PaddingBottom = UDim.new(0, 13),
+							PaddingTop = UDim.new(0, 13),
+						}),
+						TitleLabel,
+						DescLabel,
+					})
 				end
 
-				if Input.Finished then
-					AddSignal(Box.FocusLost, function(enter)
-						TextDisplay.Text = ""
-						Input:SetValue(Box.Text, false)
-					end)
-				else
-					AddSignal(Box:GetPropertyChangedSignal("Text"), function()
-						TextDisplay.Text = ""
-						Input:SetValue(Box.Text, true)
-					end)
+				do 
+					local TitleLabel = New("TextLabel", {
+						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Medium, Enum.FontStyle.Normal),
+						Text =  v.Label2.Title,
+						TextColor3 = Color3.fromRGB(240, 240, 240),
+						TextSize = 13,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Size = UDim2.new(1, 0, 0, 14),
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						ThemeTag = {
+							TextColor3 = "Text",
+						},
+					})
+
+					local DescLabel = New("TextLabel", {
+						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+						Text =  v.Label2.Content,
+						TextColor3 = Color3.fromRGB(200, 200, 200),
+						TextSize = 12,
+						TextWrapped = true,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						RichText = true,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						AutomaticSize = Enum.AutomaticSize.Y,
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, 14),
+						ThemeTag = {
+							TextColor3 = "SubText",
+						},
+					})
+
+					local LabelHolder = New("Frame", {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+						BackgroundTransparency = 1,
+						Position = UDim2.new(1, -20, 0, 0),
+						Size = UDim2.new(0, 150, 0, 0),
+						AnchorPoint = Vector2.new(1, 0),
+						Parent = Holder
+					}, {
+						New("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+						}),
+						New("UIPadding", {
+							PaddingBottom = UDim.new(0, 13),
+							PaddingTop = UDim.new(0, 13),
+						}),
+						TitleLabel,
+						DescLabel,
+					})
 				end
-
-				function Input:OnChanged(Func)
-					Input.Changed = Func
-					Func(Input.Value)
-				end
-
-				function Input:Destroy()
-					InputFrame:Destroy()
-					Library.Options[Idx] = nil
-				end
-
-				UserInputService.InputBegan:Connect(function(input)
-					if input.KeyCode == Enum.KeyCode.Return then
-						if prediction ~= "" then	
-
-							Input.Value = prediction
-							Box.Text = prediction
-							prediction = ""
-
-							Library:SafeCallback(Input.Callback, Input.Value)
-							Library:SafeCallback(Input.Changed, Input.Value)
-						end
-					end
-				end)
-				task.spawn(function()
-					while wait() do
-						TextDisplay.Visible = Textbox.Input:IsFocused()
-					end
-				end)
-
-				Library.Options[Idx] = Input
-				return Input
 			end
+		end
 
-			return Element
+		return DualLabel
 
-		end)() end,
+	end)() end,
 	[24] = function()local wax,script,require=ImportGlobals(24)local ImportGlobals return (function(...)local UserInputService = game:GetService("UserInputService")
 
 			local Root = script.Parent.Parent
@@ -4066,7 +4081,7 @@ local ClosureBindings = {
 				local SliderInner = New("Frame", {
 					Size = UDim2.new(1, 0, 0, 4),
 					AnchorPoint = Vector2.new(1, 0.5),
-					Position = UDim2.new(1, -50, 0.5, 0),
+					Position = UDim2.new(1, (Config.Toggle and -50 or -10), 0.5, 0),
 					BackgroundTransparency = 0.4,
 					Parent = SliderFrame.Frame,
 					ThemeTag = {
@@ -6282,7 +6297,7 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(120, 90, 90),
 			ElementTransparency = 0.86,
 
-			ToggleSlider = Color3.fromRGB(220, 130, 190),
+			ToggleSlider = Color3.fromRGB(200, 120, 170),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
 			SliderRail = Color3.fromRGB(200, 120, 170),
