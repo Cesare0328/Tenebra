@@ -3165,7 +3165,7 @@ local ClosureBindings = {
 
 						local Count = 0
 
-						for Idx, Value in ipairs(Values) do
+						for Idx, Value in pairs(Values) do
 							if typeof(Value) == "table" then
 								Value = Value[2]
 							end
@@ -3371,7 +3371,7 @@ local ClosureBindings = {
 
 					local Count = 0
 
-					for Idx, Value in ipairs(Values) do
+					for Idx, Value in pairs(Values) do
 						local Table = {}
 
 						if typeof(Value) == "table" then
