@@ -3762,6 +3762,7 @@ local ClosureBindings = {
 						DualLabel[2] = DescLabel
 					end
 				end
+				return DualLabel
 			end
 
 			return DualLabel
