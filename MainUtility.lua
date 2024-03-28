@@ -3684,7 +3684,6 @@ local ClosureBindings = {
 								TextColor3 = "SubText",
 							},
 						})
-
 						local LabelHolder = New("Frame", {
 							AutomaticSize = Enum.AutomaticSize.Y,
 							BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -3705,6 +3704,7 @@ local ClosureBindings = {
 							TitleLabel,
 							DescLabel,
 						})
+						DualLabel[1] = DescLabel
 					end
 
 					do 
@@ -3759,6 +3759,7 @@ local ClosureBindings = {
 							TitleLabel,
 							DescLabel,
 						})
+						DualLabel[2] = DescLabel
 					end
 				end
 			end
