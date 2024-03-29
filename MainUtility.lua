@@ -187,8 +187,8 @@ local ClosureBindings = {
 			function Acrylic.init()
 				local baseEffect = Instance.new("DepthOfFieldEffect")
 				baseEffect.FarIntensity = 0
-				baseEffect.InFocusRadius = 0.1
-				baseEffect.NearIntensity = 1
+				baseEffect.InFocusRadius = 0.2
+				baseEffect.NearIntensity = 2
 
 				local depthOfFieldDefaults = {}
 
