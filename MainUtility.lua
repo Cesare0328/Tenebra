@@ -1310,7 +1310,9 @@ local ClosureBindings = {
 					Tab.SetTransparency(Tab.Selected and 0.85 or 0.89)
 				end)
 				Creator.AddSignal(Tab.Frame.MouseButton1Click, function()
-					TabModule:SelectTab(TabIndex)
+					if TabModule.SelectedTab ~= TabIndex then
+					    TabModule:SelectTab(TabIndex)
+					end
 				end)
 
 				TabModule.Containers[TabIndex] = Tab.ContainerFrame
