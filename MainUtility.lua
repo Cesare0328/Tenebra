@@ -3167,12 +3167,12 @@ local ClosureBindings = {
 						end
 
 						local Count = 0
-
+                        local SearchText = string.lower(Textbox.Frame.Frame.TextBox.Text)
 						for Idx, Value in pairs(Values) do
 							if typeof(Value) == "table" then
 								Value = Value[2]
 							end
-							if string.find(string.lower(Value), string.lower(Textbox.Frame.Frame.TextBox.Text)) then
+							if string.find(string.lower(Value), SearchText) then
 								local Table = {}
 
 
@@ -3198,6 +3198,7 @@ local ClosureBindings = {
 									TextColor3 = Color3.fromRGB(200, 200, 200),
 									TextSize = 13,
 									TextXAlignment = Enum.TextXAlignment.Left,
+									RichText = true,
 									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 									AutomaticSize = Enum.AutomaticSize.Y,
 									BackgroundTransparency = 1,
