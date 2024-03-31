@@ -3196,6 +3196,7 @@ local ClosureBindings = {
 									Text = Value,
 									TextColor3 = Color3.fromRGB(200, 200, 200),
 									TextSize = 13,
+									RichText = true,
 									TextXAlignment = Enum.TextXAlignment.Left,
 									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 									AutomaticSize = Enum.AutomaticSize.Y,
