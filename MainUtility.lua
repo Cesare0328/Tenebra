@@ -2947,6 +2947,7 @@ local ClosureBindings = {
 					Text = "Value",
 					TextColor3 = Color3.fromRGB(240, 240, 240),
 					TextSize = 13,
+					RichText = true,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Size = UDim2.new(1, -60, 0, 14),
 					Position = UDim2.new(0, 32, 0.5, 0),
