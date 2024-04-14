@@ -20,7 +20,7 @@ local ClosureBindings = {
 
 			local ProtectGui = protectgui or (syn and syn.protect_gui) or function() end
 			local GUI = New("ScreenGui", {
-				Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
+				Parent = not RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 			})
 			ProtectGui(GUI)
 			NotificationModule:Init(GUI)
