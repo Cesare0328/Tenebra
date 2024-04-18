@@ -3150,7 +3150,7 @@ local ClosureBindings = {
 				end
 
 				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
-					Dropdown:BuildDropdownList()
+					Dropdown:Display()
 					Dropdown:Open()
 				end)
 
