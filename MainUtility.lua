@@ -20,7 +20,7 @@ local ClosureBindings = {
 
 			local ProtectGui = protectgui or (syn and syn.protect_gui) or function() end
 			local GUI = New("ScreenGui", {
-				Parent = game:GetService("CoreGui"),
+				Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 			})
 			ProtectGui(GUI)
 			NotificationModule:Init(GUI)
@@ -3150,6 +3150,7 @@ local ClosureBindings = {
 				end
 
 				Creator.AddSignal(Textbox.Frame.Frame.TextBox.Focused, function(Input)
+					Dropdown:BuildDropdownList()
 					Dropdown:Open()
 				end)
 
