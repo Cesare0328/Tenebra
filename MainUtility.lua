@@ -2060,7 +2060,50 @@ local ClosureBindings = {
 
 					Dialog:Open()
 				end
+				function Window:BigDialog(Config)
+					local Dialog = DialogModule:Create()
+					Dialog.Title.Text = Config.Title
+					Dialog.Title.TextSize = 25
 
+					local Content = New("TextLabel", {
+						FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+						Text = Config.Content,
+						TextColor3 = Color3.fromRGB(240, 240, 240),
+						TextSize = 14,
+						RichText = true,
+						TextWrapped = true,
+						AutomaticSize = Enum.AutomaticSize.Y,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						TextYAlignment = Enum.TextYAlignment.Top,
+						Size = UDim2.new(1, -80, 1, 0),
+						Position = UDim2.fromOffset(20, 60),
+						BackgroundTransparency = 1,
+						Parent = Dialog.Root,
+						ClipsDescendants = false,
+						ThemeTag = {
+							TextColor3 = "Text",
+						},
+					})
+
+					New("UISizeConstraint", {
+						MinSize = Vector2.new(600, 480),
+						MaxSize = Vector2.new(880, math.huge),
+						Parent = Dialog.Root,
+					})
+
+					Dialog.Root.Size = UDim2.fromOffset(Content.TextBounds.X + 40, 165)
+					if Content.TextBounds.X + 40 > Window.Size.X.Offset - 120 then
+						Dialog.Root.Size = UDim2.fromOffset(Window.Size.X.Offset - 120, 165)
+						Content.TextWrapped = true
+						Dialog.Root.Size = UDim2.fromOffset(Window.Size.X.Offset - 120, Content.TextBounds.Y + 150)
+					end
+
+					for _, Button in next, Config.Buttons do
+						Dialog:Button(Button.Title, Button.Callback)
+					end
+
+					Dialog:Open()
+				end
 				local TabModule = require(Components.Tab):Init(Window)
 				function Window:AddTab(TabConfig)
 					return TabModule:New(TabConfig.Title, TabConfig.Icon, Window.TabHolder)
