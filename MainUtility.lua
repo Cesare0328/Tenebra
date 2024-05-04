@@ -3145,7 +3145,6 @@ local ClosureBindings = {
 				Creator.AddSignal(DropdownInner:GetPropertyChangedSignal("AbsolutePosition"), RecalculateListPosition)
 
 				Creator.AddSignal(DropdownInner.MouseButton1Click, function()
-					Dropdown:BuildDropdownList()
 					task.wait(0.05)
 					Dropdown:Open()
 				end)
