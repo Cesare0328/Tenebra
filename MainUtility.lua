@@ -3146,6 +3146,7 @@ local ClosureBindings = {
 
 				Creator.AddSignal(DropdownInner.MouseButton1Click, function()
 					task.wait(0.05);
+					Dropdown:BuildDropdownList()
 					Dropdown:Open()
 				end)
 
