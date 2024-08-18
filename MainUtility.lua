@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoadedZ then return end
-getgenv().TenebraLoadedZ = true
+if TenebraLoadedX then return end
+getgenv().TenebraLoadedX = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3132,7 +3132,7 @@ local ClosureBindings = {
 
 				local function RecalculateListPosition()
 					DropdownHolderCanvas.Position =
-						UDim2.fromOffset(DropdownInner.AbsolutePosition.X - 1, DropdownInner.AbsolutePosition.Y + 35)
+					UDim2.fromOffset(DropdownInner.AbsolutePosition.X - 1, DropdownInner.AbsolutePosition.Y + 35)
 				end
 
 				local ListSizeX = 0
@@ -3143,20 +3143,31 @@ local ClosureBindings = {
                             VisCount += 1
                         end
                     end
-					if VisCount < 5 then
-						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 36.5 * VisCount)
+					if VisCount <= 5 then
+						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 36 * VisCount)
+                        DropdownScrollFrame.ScrollBarThickness = 0
+                        DropdownScrollFrame.ScrollingEnabled = false
 					else
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
+                        DropdownScrollFrame.ScrollBarThickness = 3
+                        DropdownScrollFrame.ScrollingEnabled = true
 					end
 				end
 
+                local function UpdateCanvasPos()
+                    local OldPos = DropdownScrollFrame.CanvasPosition
+                    DropdownScrollFrame.CanvasPosition = Vector2.new(0, 1)
+                    DropdownScrollFrame.CanvasPosition = OldPos
+                end
+                
 				local function RecalculateCanvasSize()
-					DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y)
+					DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y - 0.3)
 				end
 
 				RecalculateListPosition()
 				RecalculateListSize()
-
+                UpdateCanvasPos()
+                
 				Creator.AddSignal(DropdownInner:GetPropertyChangedSignal("AbsolutePosition"), RecalculateListPosition)
 
 				Creator.AddSignal(DropdownInner.MouseButton1Click, function()
@@ -3382,6 +3393,7 @@ local ClosureBindings = {
                             
                             RecalculateCanvasSize()
                             RecalculateListSize()
+                            UpdateCanvasPos()
                         end
                     else
                         for _, Element in next, DropdownScrollFrame:GetChildren() do
@@ -3391,6 +3403,7 @@ local ClosureBindings = {
                         end
                         RecalculateCanvasSize()
                         RecalculateListSize()
+                        UpdateCanvasPos()
                     end
                 end)
 
@@ -3592,6 +3605,7 @@ local ClosureBindings = {
 
 					RecalculateCanvasSize()
 					RecalculateListSize()
+                    UpdateCanvasPos()
 				end
 
 				function Dropdown:SetValues(NewValues)
