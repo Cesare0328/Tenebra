@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoaded then return end
-getgenv().TenebraLoaded = true
+if TenebraLoadedSession then return end
+getgenv().TenebraLoadedSession = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3220,6 +3220,12 @@ local ClosureBindings = {
                         local Values = Dropdown.Values
                         local Buttons = {}
                 
+                        for _, Element in next, DropdownScrollFrame:GetChildren() do
+                            if not Element:IsA("UIListLayout") then
+                                Element.Visible = false
+                            end
+                        end
+                
                         local Count = 0
                         local SearchText = string.lower(Textbox.Frame.Frame.TextBox.Text)
                         for Idx, Value in pairs(Values) do
@@ -3480,6 +3486,7 @@ local ClosureBindings = {
 							Size = UDim2.new(1, -5, 0, 32),
 							BackgroundTransparency = 1,
 							ZIndex = 23,
+                            Name = Value,
 							Text = "",
 							Parent = DropdownScrollFrame,
 							ThemeTag = {
