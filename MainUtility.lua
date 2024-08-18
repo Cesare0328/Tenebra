@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoadedX then return end
-getgenv().TenebraLoadedX = true
+if TenebraLoadedZ then return end
+getgenv().TenebraLoadedZ = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3144,7 +3144,7 @@ local ClosureBindings = {
                         end
                     end
 					if VisCount < 5 then
-						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 36 * VisCount)
+						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 36.5 * VisCount)
 					else
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
 					end
@@ -3379,19 +3379,16 @@ local ClosureBindings = {
                                 end
                             end
                             ListSizeX = ListSizeX + 30
-                
+                            
                             RecalculateCanvasSize()
                             RecalculateListSize()
                         end
-                        RecalculateCanvasSize()
-                        RecalculateListSize()
                     else
                         for _, Element in next, DropdownScrollFrame:GetChildren() do
                             if not Element:IsA("UIListLayout") then
                                 Element.Visible = true
                             end
                         end
-                        DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y) -- Reset CanvasSize
                         RecalculateCanvasSize()
                         RecalculateListSize()
                     end
