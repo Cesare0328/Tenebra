@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoaded then return end
-getgenv().TenebraLoaded = true
+if TenebraLoadedX then return end
+getgenv().TenebraLoadedX = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3383,6 +3383,8 @@ local ClosureBindings = {
                             RecalculateCanvasSize()
                             RecalculateListSize()
                         end
+                        RecalculateCanvasSize()
+                        RecalculateListSize()
                     else
                         for _, Element in next, DropdownScrollFrame:GetChildren() do
                             if not Element:IsA("UIListLayout") then
