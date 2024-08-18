@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoadedSession then return end
-getgenv().TenebraLoadedSession = true
+if TenebraLoaded then return end
+getgenv().TenebraLoaded = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3219,12 +3219,6 @@ local ClosureBindings = {
                     if Textbox.Frame.Frame.TextBox.Text ~= "" then
                         local Values = Dropdown.Values
                         local Buttons = {}
-                
-                        for _, Element in next, DropdownScrollFrame:GetChildren() do
-                            if not Element:IsA("UIListLayout") then
-                                Element:Destroy()
-                            end
-                        end
                 
                         local Count = 0
                         local SearchText = string.lower(Textbox.Frame.Frame.TextBox.Text)
