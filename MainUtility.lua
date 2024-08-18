@@ -3137,8 +3137,14 @@ local ClosureBindings = {
 
 				local ListSizeX = 0
 				local function RecalculateListSize()
-					if #DropdownScrollFrame:GetChildren() <= 5 then
-						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, DropdownListLayout.AbsoluteContentSize.Y + 10)
+                    local VisCount = 0
+                    for i,v in ipairs(DropdownScrollFrame:GetChildren()) do
+                        if v:IsA("TextButton") and v.Visible then
+                            VisCount += 1
+                        end
+                    end
+					if VisCount < 5 then
+						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 36 * VisCount)
 					else
 						DropdownHolderCanvas.Size = UDim2.fromOffset(ListSizeX, 180)
 					end
