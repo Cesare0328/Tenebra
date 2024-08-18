@@ -398,7 +398,7 @@ local ClosureBindings = {
                             BackgroundTransparency = 1,
                             TextTransparency = 1,
                             Size = UDim2.fromScale(1, 1),
-                            Position = UDim2.new(0.5, 0, 0.5, 0),
+                            Position = UDim2.new(0, 0, 0, 0),
 						})
 					}),
 					New("Frame", {
