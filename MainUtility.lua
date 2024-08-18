@@ -22,7 +22,7 @@ local ClosureBindings = {
 			local GUI = New("ScreenGui", {
 				Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 			})
-                        GUI.Name = "Tenebra"
+            GUI.Name = "Tenebra"
 			--ProtectGui(GUI)
 			NotificationModule:Init(GUI)
 
@@ -362,6 +362,7 @@ local ClosureBindings = {
 				AcrylicPaint.Frame = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 0.9,
+                    Name = "Background",
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BorderSizePixel = 0,
 				}, {
@@ -6998,7 +6999,6 @@ local table_remove = table.remove
 local table_freeze = table.freeze or function(t) return t end -- lol
 
 local coroutine_wrap = coroutine.wrap
-
 local string_sub = string.sub
 local string_match = string.match
 local string_gmatch = string.gmatch
