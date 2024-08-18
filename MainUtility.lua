@@ -362,7 +362,6 @@ local ClosureBindings = {
 				AcrylicPaint.Frame = New("Frame", {
 					Size = UDim2.fromScale(1, 1),
 					BackgroundTransparency = 0.9,
-                    Name = "Background",
 					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 					BorderSizePixel = 0,
 				}, {
@@ -393,8 +392,15 @@ local ClosureBindings = {
 						New("UICorner", {
 							CornerRadius = UDim.new(0, 8),
 						}),
+                        New("TextLabel", {
+							Name = "InputBlocker",
+                            Active = true,
+                            BackgroundTransparency = 1,
+                            TextTransparency = 1,
+                            Size = UDim2.fromScale(1, 1),
+                            Position = UDim2.new(0.5, 0, 0.5, 0),
+						})
 					}),
-
 					New("Frame", {
 						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 						BackgroundTransparency = 0.4,
