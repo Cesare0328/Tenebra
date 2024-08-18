@@ -1,5 +1,6 @@
 local ImportGlobals
-
+if TenebraLoaded then return end
+getgenv().TenebraLoaded = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3207,177 +3208,183 @@ local ClosureBindings = {
 				end)
 
 
-				Textbox.Frame.Frame.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-					DropdownDisplay.Text = Textbox.Frame.Frame.TextBox.Text
-					if Textbox.Frame.Frame.TextBox.Text ~= "" then
-						local Values = Dropdown.Values
-						local Buttons = {}
-
-						for _, Element in next, DropdownScrollFrame:GetChildren() do
-							if not Element:IsA("UIListLayout") then
-								Element:Destroy()
-							end
-						end
-
-						local Count = 0
+                Textbox.Frame.Frame.TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+                    DropdownDisplay.Text = Textbox.Frame.Frame.TextBox.Text
+                    if Textbox.Frame.Frame.TextBox.Text ~= "" then
+                        local Values = Dropdown.Values
+                        local Buttons = {}
+                
+                        for _, Element in next, DropdownScrollFrame:GetChildren() do
+                            if not Element:IsA("UIListLayout") then
+                                Element.Visible = false
+                            end
+                        end
+                
+                        local Count = 0
                         local SearchText = string.lower(Textbox.Frame.Frame.TextBox.Text)
-						for Idx, Value in pairs(Values) do
-							if typeof(Value) == "table" then
-								Value = Value[2]
-							end
-							if string.find(string.lower(Value), SearchText) then
-								local Table = {}
-
-
-								Count = Count + 1
-
-								local ButtonSelector = New("Frame", {
-									Size = UDim2.fromOffset(4, 14),
-									BackgroundColor3 = Color3.fromRGB(76, 194, 255),
-									Position = UDim2.fromOffset(-1, 16),
-									AnchorPoint = Vector2.new(0, 0.5),
-									ThemeTag = {
-										BackgroundColor3 = "Accent",
-									},
-								}, {
-									New("UICorner", {
-										CornerRadius = UDim.new(0, 2),
-									}),
-								})
-
-								local ButtonLabel = New("TextLabel", {
-									FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
-									Text = Value,
-									TextColor3 = Color3.fromRGB(200, 200, 200),
-									TextSize = 13,
-									TextXAlignment = Enum.TextXAlignment.Left,
-									RichText = true,
-									BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-									AutomaticSize = Enum.AutomaticSize.Y,
-									BackgroundTransparency = 1,
-									Size = UDim2.fromScale(1, 1),
-									Position = UDim2.fromOffset(10, 0),
-									Name = "ButtonLabel",
-									ThemeTag = {
-										TextColor3 = "Text",
-									},
-								})
-
-								local Button = New("TextButton", {
-									Size = UDim2.new(1, -5, 0, 32),
-									BackgroundTransparency = 1,
-									ZIndex = 23,
-									Text = "",
-									Parent = DropdownScrollFrame,
-									ThemeTag = {
-										BackgroundColor3 = "DropdownOption",
-									},
-								}, {
-									ButtonSelector,
-									ButtonLabel,
-									New("UICorner", {
-										CornerRadius = UDim.new(0, 6),
-									}),
-								})
-
-								local Selected
-
-								if Config.Multi then
-									Selected = Dropdown.Value[Value]
-								else
-									Selected = Dropdown.Value == Value
-								end
-
-								local BackMotor, SetBackTransparency = Creator.SpringMotor(1, Button, "BackgroundTransparency")
-								local SelMotor, SetSelTransparency = Creator.SpringMotor(1, ButtonSelector, "BackgroundTransparency")
-								local SelectorSizeMotor = Flipper.SingleMotor.new(6)
-
-								SelectorSizeMotor:onStep(function(value)
-									ButtonSelector.Size = UDim2.new(0, 4, 0, value)
-								end)
-
-								Creator.AddSignal(Button.MouseEnter, function()
-									SetBackTransparency(Selected and 0.85 or 0.89)
-								end)
-								Creator.AddSignal(Button.MouseLeave, function()
-									SetBackTransparency(Selected and 0.89 or 1)
-								end)
-								Creator.AddSignal(Button.MouseButton1Down, function()
-									SetBackTransparency(0.92)
-								end)
-								Creator.AddSignal(Button.MouseButton1Up, function()
-									SetBackTransparency(Selected and 0.85 or 0.89)
-								end)
-
-								function Table:UpdateButton()
-									if Config.Multi then
-										Selected = Dropdown.Value[Value]
-										if Selected then
-											SetBackTransparency(0.89)
-										end
-									else
-										Selected = Dropdown.Value == Value
-										SetBackTransparency(Selected and 0.89 or 1)
-									end
-
-									SelectorSizeMotor:setGoal(Flipper.Spring.new(Selected and 14 or 6, { frequency = 6 }))
-									SetSelTransparency(Selected and 0 or 1)
-								end
-
-								ButtonLabel.InputBegan:Connect(function(Input)
-									if
-										Input.UserInputType == Enum.UserInputType.MouseButton1
-										or Input.UserInputType == Enum.UserInputType.Touch
-									then
-										local Try = not Selected
-
-										if Dropdown:GetActiveValues() == 1 and not Try and not Config.AllowNull then
-										else
-											if Config.Multi then
-												Selected = Try
-												Dropdown.Value[Value] = Selected and true or nil
-											else
-												Selected = Try
-												Dropdown.Value = Selected and Value or nil
-
-												for _, OtherButton in next, Buttons do
-													OtherButton:UpdateButton()
-												end
-											end
-
-											Table:UpdateButton()
-											Dropdown:Display()
-											Library:SafeCallback(Dropdown.Callback, Dropdown.Value)
-											Library:SafeCallback(Dropdown.Changed, Dropdown.Value)
-										end
-									end
-								end)
-
-								Table:UpdateButton()
-
-								Buttons[Button] = Table
-
-								RecalculateCanvasSize()
-								RecalculateListSize()
-							end
-
-							ListSizeX = 0
-							for Button, Table in next, Buttons do
-								if Button.ButtonLabel then
-									if Button.ButtonLabel.TextBounds.X > ListSizeX then
-										ListSizeX = Button.ButtonLabel.TextBounds.X
-									end
-								end
-							end
-							ListSizeX = ListSizeX + 30
-
-							RecalculateCanvasSize()
-							RecalculateListSize()
-						end
-					else
-						Dropdown:BuildDropdownList()
-					end
-				end)
+                        for Idx, Value in pairs(Values) do
+                            if typeof(Value) == "table" then
+                                Value = Value[2]
+                            end
+                            if string.find(string.lower(Value), SearchText) then
+                                local Button = DropdownScrollFrame:FindFirstChild(Value)
+                                if Button then
+                                    Button.Visible = true
+                                else
+                                    local Table = {}
+                
+                                    Count = Count + 1
+                
+                                    local ButtonSelector = New("Frame", {
+                                        Size = UDim2.fromOffset(4, 14),
+                                        BackgroundColor3 = Color3.fromRGB(76, 194, 255),
+                                        Position = UDim2.fromOffset(-1, 16),
+                                        AnchorPoint = Vector2.new(0, 0.5),
+                                        ThemeTag = {
+                                            BackgroundColor3 = "Accent",
+                                        },
+                                    }, {
+                                        New("UICorner", {
+                                            CornerRadius = UDim.new(0, 2),
+                                        }),
+                                    })
+                
+                                    local ButtonLabel = New("TextLabel", {
+                                        FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
+                                        Text = Value,
+                                        TextColor3 = Color3.fromRGB(200, 200, 200),
+                                        TextSize = 13,
+                                        TextXAlignment = Enum.TextXAlignment.Left,
+                                        RichText = true,
+                                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                                        AutomaticSize = Enum.AutomaticSize.Y,
+                                        BackgroundTransparency = 1,
+                                        Size = UDim2.fromScale(1, 1),
+                                        Position = UDim2.fromOffset(10, 0),
+                                        Name = "ButtonLabel",
+                                        ThemeTag = {
+                                            TextColor3 = "Text",
+                                        },
+                                    })
+                
+                                    local Button = New("TextButton", {
+                                        Size = UDim2.new(1, -5, 0, 32),
+                                        BackgroundTransparency = 1,
+                                        ZIndex = 23,
+                                        Text = "",
+                                        Parent = DropdownScrollFrame,
+                                        Name = Value,
+                                        ThemeTag = {
+                                            BackgroundColor3 = "DropdownOption",
+                                        },
+                                    }, {
+                                        ButtonSelector,
+                                        ButtonLabel,
+                                        New("UICorner", {
+                                            CornerRadius = UDim.new(0, 6),
+                                        }),
+                                    })
+                
+                                    local Selected
+                
+                                    if Config.Multi then
+                                        Selected = Dropdown.Value[Value]
+                                    else
+                                        Selected = Dropdown.Value == Value
+                                    end
+                
+                                    local BackMotor, SetBackTransparency = Creator.SpringMotor(1, Button, "BackgroundTransparency")
+                                    local SelMotor, SetSelTransparency = Creator.SpringMotor(1, ButtonSelector, "BackgroundTransparency")
+                                    local SelectorSizeMotor = Flipper.SingleMotor.new(6)
+                
+                                    SelectorSizeMotor:onStep(function(value)
+                                        ButtonSelector.Size = UDim2.new(0, 4, 0, value)
+                                    end)
+                
+                                    Creator.AddSignal(Button.MouseEnter, function()
+                                        SetBackTransparency(Selected and 0.85 or 0.89)
+                                    end)
+                                    Creator.AddSignal(Button.MouseLeave, function()
+                                        SetBackTransparency(Selected and 0.89 or 1)
+                                    end)
+                                    Creator.AddSignal(Button.MouseButton1Down, function()
+                                        SetBackTransparency(0.92)
+                                    end)
+                                    Creator.AddSignal(Button.MouseButton1Up, function()
+                                        SetBackTransparency(Selected and 0.85 or 0.89)
+                                    end)
+                
+                                    function Table:UpdateButton()
+                                        if Config.Multi then
+                                            Selected = Dropdown.Value[Value]
+                                            if Selected then
+                                                SetBackTransparency(0.89)
+                                            end
+                                        else
+                                            Selected = Dropdown.Value == Value
+                                            SetBackTransparency(Selected and 0.89 or 1)
+                                        end
+                
+                                        SelectorSizeMotor:setGoal(Flipper.Spring.new(Selected and 14 or 6, { frequency = 6 }))
+                                        SetSelTransparency(Selected and 0 or 1)
+                                    end
+                
+                                    ButtonLabel.InputBegan:Connect(function(Input)
+                                        if
+                                            Input.UserInputType == Enum.UserInputType.MouseButton1
+                                            or Input.UserInputType == Enum.UserInputType.Touch
+                                        then
+                                            local Try = not Selected
+                
+                                            if Dropdown:GetActiveValues() == 1 and not Try and not Config.AllowNull then
+                                            else
+                                                if Config.Multi then
+                                                    Selected = Try
+                                                    Dropdown.Value[Value] = Selected and true or nil
+                                                else
+                                                    Selected = Try
+                                                    Dropdown.Value = Selected and Value or nil
+                
+                                                    for _, OtherButton in next, Buttons do
+                                                        OtherButton:UpdateButton()
+                                                    end
+                                                end
+                
+                                                Table:UpdateButton()
+                                                Dropdown:Display()
+                                                Library:SafeCallback(Dropdown.Callback, Dropdown.Value)
+                                                Library:SafeCallback(Dropdown.Changed, Dropdown.Value)
+                                            end
+                                        end
+                                    end)
+                
+                                    Table:UpdateButton()
+                
+                                    Buttons[Button] = Table
+                                end
+                            end
+                
+                            ListSizeX = 0
+                            for Button, Table in next, Buttons do
+                                if Button.ButtonLabel then
+                                    if Button.ButtonLabel.TextBounds.X > ListSizeX then
+                                        ListSizeX = Button.ButtonLabel.TextBounds.X
+                                    end
+                                end
+                            end
+                            ListSizeX = ListSizeX + 30
+                
+                            RecalculateCanvasSize()
+                            RecalculateListSize()
+                        end
+                    else
+                        for _, Element in next, DropdownScrollFrame:GetChildren() do
+                            if not Element:IsA("UIListLayout") then
+                                Element.Visible = true
+                            end
+                        end
+                    end
+                end)
 
 
 
