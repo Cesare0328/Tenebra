@@ -1,6 +1,6 @@
 local ImportGlobals
-if TenebraLoadedSession then return end
-getgenv().TenebraLoadedSession = true
+if TenebraLoaded then return end
+getgenv().TenebraLoaded = true
 local ClosureBindings = {
 	function()local wax,script,require=ImportGlobals(1)local ImportGlobals return (function(...)local Lighting = game:GetService("Lighting")
 			local RunService = game:GetService("RunService")
@@ -3389,10 +3389,11 @@ local ClosureBindings = {
                                 Element.Visible = true
                             end
                         end
+                        DropdownScrollFrame.CanvasSize = UDim2.fromOffset(0, DropdownListLayout.AbsoluteContentSize.Y) -- Reset CanvasSize
+                        RecalculateCanvasSize()
+                        RecalculateListSize()
                     end
                 end)
-
-
 
 				function Dropdown:Display()
 					local Values = Dropdown.Values
