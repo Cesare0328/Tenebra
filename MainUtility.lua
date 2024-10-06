@@ -846,7 +846,7 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = "ElementBorder",
+						Color = (Config.Toggle.RiskyToggle and "RiskyToggle") or "ElementBorder",
 					},
 				})
 
@@ -2897,7 +2897,7 @@ local ClosureBindings = {
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
-								Color = (Config.Toggle.RiskyToggle and "RiskyToggle") or "ToggleSlider",
+								Color = "ToggleSlider",
 							},
 						})
 
@@ -4422,7 +4422,7 @@ local ClosureBindings = {
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
-								Color = (Config.Toggle.RiskyToggle and "RiskyToggle") or "ToggleSlider",
+								Color = "ToggleSlider",
 							},
 						})
 
