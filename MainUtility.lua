@@ -2897,7 +2897,7 @@ local ClosureBindings = {
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
-								Color = "ToggleSlider",
+								Color = (Config.Toggle.RiskyToggle and "RiskyToggle") or "ToggleSlider",
 							},
 						})
 
@@ -4422,7 +4422,7 @@ local ClosureBindings = {
 						local ToggleBorder = New("UIStroke", {
 							Transparency = 0.5,
 							ThemeTag = {
-								Color = "ToggleSlider",
+								Color = (Config.Toggle.RiskyToggle and "RiskyToggle") or "ToggleSlider",
 							},
 						})
 
@@ -6304,6 +6304,8 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(100, 90, 110),
 			ElementTransparency = 0.87,
 
+			RiskyToggle = Color3.fromRGB(255, 0, 0)
+
 			ToggleSlider = Color3.fromRGB(140, 120, 160),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
@@ -6353,6 +6355,8 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(80, 110, 110),
 			ElementTransparency = 0.84,
 
+			RiskyToggle = Color3.fromRGB(255, 0, 0)
+			
 			ToggleSlider = Color3.fromRGB(110, 160, 160),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
@@ -6402,6 +6406,8 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(90, 90, 90),
 			ElementTransparency = 0.87,
 
+			RiskyToggle = Color3.fromRGB(255, 0, 0)
+			
 			ToggleSlider = Color3.fromRGB(120, 120, 120),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
@@ -6483,6 +6489,8 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(150, 150, 150),
 			ElementTransparency = 0.65,
 
+			RiskyToggle = Color3.fromRGB(255, 0, 0)
+			
 			ToggleSlider = Color3.fromRGB(40, 40, 40),
 			ToggleToggled = Color3.fromRGB(255, 255, 255),
 
@@ -6532,6 +6540,8 @@ local ClosureBindings = {
 			InElementBorder = Color3.fromRGB(120, 90, 90),
 			ElementTransparency = 0.86,
 
+			RiskyToggle = Color3.fromRGB(255, 0, 0)
+			
 			ToggleSlider = Color3.fromRGB(200, 120, 170),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
