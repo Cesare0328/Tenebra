@@ -846,7 +846,7 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = "ElementBorder",
+						Color = (Title == "Autofarm Shark" and "RiskyToggle") or"ElementBorder",
 					},
 				})
 
