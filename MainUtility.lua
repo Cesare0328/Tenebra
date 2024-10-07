@@ -846,10 +846,10 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = (Title == "Autofarm Shark" and "RiskyToggle") or"ElementBorder",
+						Color = "ElementBorder",
 					},
 				})
-
+                warn(Title)
 				Element.Frame = New("TextButton", {
 					Size = UDim2.new(1, 0, 0, 0),
 					BackgroundTransparency = 0.89,
