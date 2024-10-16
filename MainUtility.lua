@@ -846,7 +846,7 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = (Title == "Autofarm Shark") and "RiskyToggle" or "ElementBorder",
+						Color = (Title == "Autofarm Shark") and "RiskyToggle" or (Title == "Fast Ship Repair") and "MaintenanceToggle" or "ElementBorder",
 					},
 				})
 
@@ -6305,6 +6305,7 @@ local ClosureBindings = {
 			ElementTransparency = 0.87,
 
 			RiskyToggle = Color3.fromRGB(255, 0, 0),
+            MaintenanceToggle = Color3.fromRGB(154, 138, 24),
 
 			ToggleSlider = Color3.fromRGB(140, 120, 160),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
@@ -6356,7 +6357,8 @@ local ClosureBindings = {
 			ElementTransparency = 0.84,
 
 			RiskyToggle = Color3.fromRGB(255, 0, 0),
-			
+            MaintenanceToggle = Color3.fromRGB(154, 138, 24),
+
 			ToggleSlider = Color3.fromRGB(110, 160, 160),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
@@ -6407,7 +6409,8 @@ local ClosureBindings = {
 			ElementTransparency = 0.87,
 
 			RiskyToggle = Color3.fromRGB(255, 0, 0),
-			
+            MaintenanceToggle = Color3.fromRGB(154, 138, 24),
+
 			ToggleSlider = Color3.fromRGB(120, 120, 120),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
@@ -6490,7 +6493,8 @@ local ClosureBindings = {
 			ElementTransparency = 0.65,
 
 			RiskyToggle = Color3.fromRGB(255, 0, 0),
-			
+            MaintenanceToggle = Color3.fromRGB(154, 138, 24),
+
 			ToggleSlider = Color3.fromRGB(40, 40, 40),
 			ToggleToggled = Color3.fromRGB(255, 255, 255),
 
@@ -6541,7 +6545,8 @@ local ClosureBindings = {
 			ElementTransparency = 0.86,
 
 			RiskyToggle = Color3.fromRGB(255, 0, 0),
-			
+            MaintenanceToggle = Color3.fromRGB(154, 138, 24),
+
 			ToggleSlider = Color3.fromRGB(200, 120, 170),
 			ToggleToggled = Color3.fromRGB(0, 0, 0),
 
