@@ -23,7 +23,7 @@ local ClosureBindings = {
 			local GUI = New("ScreenGui", {
 				Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 			})
-                        GUI.Name = "Tenebra"
+            GUI.Name = "Tenebra"
 			--ProtectGui(GUI)
 			NotificationModule:Init(GUI)
 
@@ -846,7 +846,7 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = (Title == "Start ChestFarm") and "RiskyToggle" or "ElementBorder",
+						Color = (Title == "Start ChestFarm") and "RiskyToggle" or (Title == "Damage Boost") and "MaintenanceToggle" or "ElementBorder",
 					},
 				})
 
