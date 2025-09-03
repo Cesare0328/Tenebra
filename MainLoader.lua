@@ -1,5 +1,6 @@
 repeat task.wait() until game:IsLoaded()
 if getgenv().TenebraLoadedX then return end
+getgenv().TenebraLoadedX = true
 local AssetService = game:GetService("AssetService")
 
 local function CheckPlaceId(GameID)
