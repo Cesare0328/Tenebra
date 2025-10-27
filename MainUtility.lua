@@ -846,7 +846,7 @@ local ClosureBindings = {
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 					Color = Color3.fromRGB(0, 0, 0),
 					ThemeTag = {
-						Color = (Title == "Start ChestFarm") and "RiskyToggle" or (Title == "Damage Boost") and "MaintenanceToggle" or "ElementBorder",
+						Color = (Title == "Start ChestFarm" or Title == "Start Autostory" or Title == "Learn DodgeReflex") and "RiskyToggle" or (Title == "Damage Boost") and "MaintenanceToggle" or "ElementBorder",
 					},
 				})
 
